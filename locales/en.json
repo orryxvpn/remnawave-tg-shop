@@ -214,6 +214,7 @@
   "admin_promo_edit_success": "Promo code updated successfully.",
   "admin_promo_invalid_input": "Invalid input, please try again.",
   "admin_promo_edit_bonus_days": "🎁 Bonus Days",
+  "admin_promo_edit_discount_percentage": "💰 Discount %",
   "admin_promo_edit_max_activations": "🔢 Max Activations",
   "admin_promo_edit_validity": "⏰ Validity",
   "admin_ban_user_prompt": "Enter user ID or @username to ban:",

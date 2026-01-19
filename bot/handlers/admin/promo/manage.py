@@ -415,7 +415,7 @@ async def promo_edit_select_handler(callback: types.CallbackQuery, i18n_data: di
     builder = InlineKeyboardBuilder()
     # Show appropriate edit option based on type
     if promo_type == "discount":
-        builder.row(InlineKeyboardButton(text="💰 Edit Discount %", callback_data=f"promo_edit_field:discount_percentage:{promo_id}"))
+        builder.row(InlineKeyboardButton(text=_("admin_promo_edit_discount_percentage"), callback_data=f"promo_edit_field:discount_percentage:{promo_id}"))
     else:
         builder.row(InlineKeyboardButton(text=_("admin_promo_edit_bonus_days"), callback_data=f"promo_edit_field:bonus_days:{promo_id}"))
 

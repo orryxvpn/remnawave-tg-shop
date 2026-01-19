@@ -224,6 +224,7 @@
   "admin_promo_edit_success": "Промокод успешно обновлен.",
   "admin_promo_invalid_input": "Неверный ввод, попробуйте еще раз.",
   "admin_promo_edit_bonus_days": "🎁 Бонусные дни",
+  "admin_promo_edit_discount_percentage": "💰 Процент скидки",
   "admin_promo_edit_max_activations": "🔢 Макс. активации",
   "admin_promo_edit_validity": "⏰ Срок действия",
   "admin_ban_user_prompt": "Введите ID или @username пользователя для блокировки:",
