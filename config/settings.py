@@ -1,6 +1,6 @@
 import logging
 from pydantic_settings import BaseSettings, SettingsConfigDict
-from pydantic import Field, ValidationError, computed_field, field_validator
+from pydantic import Field, ValidationError, computed_field, field_validator, model_validator
 from typing import Optional, List, Dict, Any
 
 
@@ -23,6 +23,10 @@ class Settings(BaseSettings):
     SUPPORT_LINK: Optional[str] = Field(default=None)
     SERVER_STATUS_URL: Optional[str] = Field(default=None)
     TERMS_OF_SERVICE_URL: Optional[str] = Field(default=None)
+    REQUIRED_CHANNEL_SUBSCRIBE_TO_USE: bool = Field(
+        default=False,
+        description="Require users to subscribe to REQUIRED_CHANNEL_ID before using the bot",
+    )
     REQUIRED_CHANNEL_ID: Optional[int] = Field(
         default=None,
         description="Telegram channel ID the user must join to access the bot")
@@ -167,6 +171,10 @@ class Settings(BaseSettings):
     REFERRAL_ONE_BONUS_PER_REFEREE: bool = Field(
         default=True,
         description="When true, referral bonuses (for inviter and referee) are applied only once per invited user - on their first successful payment."
+    )
+    REFERRAL_ENABLED: bool = Field(
+        default=True,
+        description="Enable referral links, referral menu and referral bonuses",
     )
     LEGACY_REFS: bool = Field(
         default=True,
@@ -530,13 +538,24 @@ class Settings(BaseSettings):
             return "INFO"
         return v
 
-    @field_validator('LOG_CHAT_ID', 'LOG_THREAD_ID', mode='before')
+    @model_validator(mode='before')
     @classmethod
-    def validate_optional_int_fields(cls, v):
-        """Convert empty strings to None for optional integer fields"""
-        if isinstance(v, str) and v.strip() == '':
-            return None
-        return v
+    def drop_comment_placeholder_values(cls, values: Any):
+        """
+        dotenv parses lines like `KEY=  # comment` as `"# comment"`.
+        Treat such values as unset so defaults/optionals work as expected.
+        """
+        if not isinstance(values, dict):
+            return values
+
+        sanitized: Dict[str, Any] = {}
+        for key, value in values.items():
+            if isinstance(value, str):
+                trimmed = value.strip()
+                if trimmed == "#" or trimmed.startswith("# "):
+                    continue
+            sanitized[key] = value
+        return sanitized
 
     @field_validator(
         'REQUIRED_CHANNEL_LINK',
@@ -552,7 +571,16 @@ class Settings(BaseSettings):
             return None
         return v
     
-    @field_validator('USER_HWID_DEVICE_LIMIT', 'SEVERPAY_MID', 'SEVERPAY_LIFETIME_MINUTES', mode='before')
+    @field_validator(
+        'REQUIRED_CHANNEL_ID',
+        'FREEKASSA_PAYMENT_METHOD_ID',
+        'USER_HWID_DEVICE_LIMIT',
+        'SEVERPAY_MID',
+        'SEVERPAY_LIFETIME_MINUTES',
+        'LOG_CHAT_ID',
+        'LOG_THREAD_ID',
+        mode='before'
+    )
     @classmethod
     def validate_optional_int(cls, v):
         if isinstance(v, str):

@@ -134,8 +134,15 @@ async def ensure_required_channel_subscription(
     Verify that the user is a member of the required channel (if configured).
     Returns True when access can proceed, False when user must subscribe first.
     """
+    if not settings.REQUIRED_CHANNEL_SUBSCRIBE_TO_USE:
+        return True
+
     required_channel_id = settings.REQUIRED_CHANNEL_ID
     if not required_channel_id:
+        logging.warning(
+            "REQUIRED_CHANNEL_SUBSCRIBE_TO_USE is enabled but REQUIRED_CHANNEL_ID is not set. "
+            "Channel gate is skipped."
+        )
         return True
 
     if isinstance(event, types.CallbackQuery):
@@ -327,7 +334,7 @@ async def start_command_handler(message: types.Message,
     promo_code_to_apply: Optional[str] = None
     ad_start_param: Optional[str] = None
 
-    if ref_match:
+    if ref_match and settings.REFERRAL_ENABLED:
         raw_ref_value = ref_match.group(1)
         if raw_ref_value.isdigit():
             if settings.LEGACY_REFS:
@@ -345,6 +352,11 @@ async def start_command_handler(message: types.Message,
                     session, normalized_code)
             if ref_user and ref_user.user_id != user_id:
                 referred_by_user_id = ref_user.user_id
+    elif ref_match and not settings.REFERRAL_ENABLED:
+        logging.info(
+            "User %s started with referral parameter while referral system is disabled.",
+            user_id,
+        )
     elif promo_match:
         promo_code_to_apply = promo_match.group(1)
         logging.info(f"User {user_id} started with promo code: {promo_code_to_apply}")
@@ -663,6 +675,10 @@ async def main_action_callback_handler(
         promo_code_service: PromoCodeService, session: AsyncSession):
     action = callback.data.split(":")[1]
     user_id = callback.from_user.id
+    current_lang = i18n_data.get("current_language", settings.DEFAULT_LANGUAGE)
+    i18n: Optional[JsonI18n] = i18n_data.get("i18n_instance")
+    _ = lambda key, **kwargs: i18n.gettext(current_lang, key, **kwargs
+                                           ) if i18n else key
 
     from . import subscription as user_subscription_handlers
     from . import referral as user_referral_handlers
@@ -685,6 +701,10 @@ async def main_action_callback_handler(
             callback, i18n_data, settings, panel_service, subscription_service,
             session, bot)
     elif action == "referral":
+        if not settings.REFERRAL_ENABLED:
+            await callback.answer(_("referral_no_bonuses_configured"),
+                                  show_alert=True)
+            return
         await user_referral_handlers.referral_command_handler(
             callback, settings, i18n_data, referral_service, bot, session)
     elif action == "apply_promo":
@@ -711,7 +731,4 @@ async def main_action_callback_handler(
                              session,
                              is_edit=False)
     else:
-        i18n: Optional[JsonI18n] = i18n_data.get("i18n_instance")
-        _ = lambda key, **kwargs: i18n.gettext(
-            i18n_data.get("current_language"), key, **kw) if i18n else key
         await callback.answer(_("main_menu_unknown_action"), show_alert=True)
