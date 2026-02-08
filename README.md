@@ -80,7 +80,9 @@
     | Переменная | Описание |
     | --- | --- |
     | `WEBHOOK_BASE_URL`| **Обязательно.** Базовый URL для вебхуков, например `https://your.domain.com`. |
-    | `WEB_SERVER_HOST` | Хост для веб-сервера. | `0.0.0.0` |
+    | `TELEGRAM_WEBHOOK_PATH` | Относительный путь Telegram вебхука. По умолчанию `/webhook/telegram`. |
+    | `TELEGRAM_WEBHOOK_SECRET` | (Рекомендуется) Секрет для проверки заголовка `X-Telegram-Bot-Api-Secret-Token`. |
+    | `WEB_SERVER_HOST` | Хост для веб-сервера. По умолчанию `0.0.0.0`. | `0.0.0.0` |
     | `WEB_SERVER_PORT` | Порт для веб-сервера. | `8080` |
     | `PAYMENT_METHODS_ORDER` | (Опционально) Порядок отображения кнопок оплаты через запятую. Поддерживаемые ключи: `severpay`, `freekassa`, `platega`, `yookassa`, `stars`, `cryptopay`. Первый будет сверху. |
     | `YOOKASSA_ENABLED` | Включить/выключить YooKassa (`true`/`false`). |
@@ -100,6 +102,7 @@
     | `FREEKASSA_PAYMENT_IP` | Внешний IP вашего сервера, который будет передаваться в запрос оплаты. |
     | `FREEKASSA_PAYMENT_METHOD_ID` | ID метода оплаты через магазин FreeKassa. По умолчанию `44`. |
     | `STARS_ENABLED` | Включить/выключить Telegram Stars (`true`/`false`). |
+| `STARS_PROVIDER_TOKEN` | Токен провайдера Telegram invoice. Для Stars (XTR) оставить пустым. |
     | `PLATEGA_ENABLED`| Включить/выключить Platega (`true`/`false`). |
     | `PLATEGA_MERCHANT_ID`| MerchantId из личного кабинета Platega. |
     | `PLATEGA_SECRET`| API секрет для запросов Platega. |
@@ -168,7 +171,7 @@
     -   `https://<ваш_домен>/webhook/severpay` → `http://remnawave-tg-shop:<WEB_SERVER_PORT>/webhook/severpay`
     -   `https://<ваш_домен>/webhook/cryptopay` → `http://remnawave-tg-shop:<WEB_SERVER_PORT>/webhook/cryptopay`
     -   `https://<ваш_домен>/webhook/panel` → `http://remnawave-tg-shop:<WEB_SERVER_PORT>/webhook/panel`
-    -   **Для Telegram:** Бот автоматически установит вебхук, если в `.env` указан `WEBHOOK_BASE_URL`. Путь будет `https://<ваш_домен>/<BOT_TOKEN>`.
+    -   **Для Telegram:** Бот автоматически установит вебхук, если в `.env` указан `WEBHOOK_BASE_URL`. Путь берётся из `TELEGRAM_WEBHOOK_PATH` (по умолчанию `https://<ваш_домен>/webhook/telegram`).
 
     Где `remnawave-tg-shop` — это имя сервиса из `docker-compose.yml`, а `<WEB_SERVER_PORT>` — порт, указанный в `.env`.
 

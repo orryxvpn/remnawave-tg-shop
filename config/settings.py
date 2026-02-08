@@ -213,7 +213,7 @@ class Settings(BaseSettings):
     CRYPT4_ENABLED: bool = Field(default=False, description="Enable happ crypt4 encryption for subscription URLs")
     CRYPT4_REDIRECT_URL: Optional[str] = Field(default=None, description="Base redirect URL used for the connect button when crypt4 is enabled")
 
-    WEB_SERVER_HOST: str = Field(default="127.0.0.1")
+    WEB_SERVER_HOST: str = Field(default="0.0.0.0")
     WEB_SERVER_PORT: int = Field(default=8080)
     LOGS_PAGE_SIZE: int = Field(default=10)
 
