@@ -1,3 +1,4 @@
+import logging
 from typing import Optional
 
 from aiogram import F, Router, types
@@ -27,15 +28,15 @@ async def pay_crypto_callback_handler(
     if not i18n or not callback.message:
         try:
             await callback.answer(get_text("error_occurred_try_again"), show_alert=True)
-        except Exception:
-            pass
+        except Exception as exc:
+            logging.debug("Suppressed exception in bot/handlers/user/subscription/payments_crypto.py: %s", exc)
         return
 
     if not cryptopay_service or not getattr(cryptopay_service, "configured", False):
         try:
             await callback.answer(get_text("payment_service_unavailable_alert"), show_alert=True)
-        except Exception:
-            pass
+        except Exception as exc:
+            logging.debug("Suppressed exception in bot/handlers/user/subscription/payments_crypto.py: %s", exc)
         return
 
     try:
@@ -47,8 +48,8 @@ async def pay_crypto_callback_handler(
     except (ValueError, IndexError):
         try:
             await callback.answer(get_text("error_try_again"), show_alert=True)
-        except Exception:
-            pass
+        except Exception as exc:
+            logging.debug("Suppressed exception in bot/handlers/user/subscription/payments_crypto.py: %s", exc)
         return
 
     user_id = callback.from_user.id
@@ -103,15 +104,15 @@ async def pay_crypto_callback_handler(
                     ),
                     disable_web_page_preview=False,
                 )
-            except Exception:
-                pass
+            except Exception as exc:
+                logging.debug("Suppressed exception in bot/handlers/user/subscription/payments_crypto.py: %s", exc)
         try:
             await callback.answer()
-        except Exception:
-            pass
+        except Exception as exc:
+            logging.debug("Suppressed exception in bot/handlers/user/subscription/payments_crypto.py: %s", exc)
         return
 
     try:
         await callback.answer(get_text("error_payment_gateway"), show_alert=True)
-    except Exception:
-        pass
+    except Exception as exc:
+        logging.debug("Suppressed exception in bot/handlers/user/subscription/payments_crypto.py: %s", exc)

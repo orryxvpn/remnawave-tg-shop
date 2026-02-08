@@ -48,13 +48,13 @@ async def send_main_menu(target_event: Union[types.Message,
         if isinstance(target_event, types.CallbackQuery):
             try:
                 await target_event.answer(err_msg_fallback, show_alert=True)
-            except Exception:
-                pass
+            except Exception as exc:
+                logging.debug("Suppressed exception in bot/handlers/user/start.py: %s", exc)
         elif isinstance(target_event, types.Message):
             try:
                 await target_event.answer(err_msg_fallback)
-            except Exception:
-                pass
+            except Exception as exc:
+                logging.debug("Suppressed exception in bot/handlers/user/start.py: %s", exc)
         return
 
 
@@ -102,8 +102,8 @@ async def send_main_menu(target_event: Union[types.Message,
         if isinstance(target_event, types.CallbackQuery):
             try:
                 await target_event.answer()
-            except Exception:
-                pass
+            except Exception as exc:
+                logging.debug("Suppressed exception in bot/handlers/user/start.py: %s", exc)
     except Exception as e_send_edit:
         logging.warning(
             f"Failed to send/edit main menu (user: {user_id}, is_edit: {is_edit}): {type(e_send_edit).__name__} - {e_send_edit}."
@@ -119,8 +119,8 @@ async def send_main_menu(target_event: Union[types.Message,
             try:
                 await target_event.answer(
                     _("error_occurred_try_again") if is_edit else None)
-            except Exception:
-                pass
+            except Exception as exc:
+                logging.debug("Suppressed exception in bot/handlers/user/start.py: %s", exc)
 
 
 async def ensure_required_channel_subscription(
@@ -220,13 +220,13 @@ async def ensure_required_channel_subscription(
         if isinstance(event, types.CallbackQuery):
             try:
                 await event.answer(error_text, show_alert=True)
-            except Exception:
-                pass
+            except Exception as exc:
+                logging.debug("Suppressed exception in bot/handlers/user/start.py: %s", exc)
             if message_obj:
                 try:
                     await message_obj.answer(error_text)
-                except Exception:
-                    pass
+                except Exception as exc:
+                    logging.debug("Suppressed exception in bot/handlers/user/start.py: %s", exc)
         else:
             await event.answer(error_text)
         return False
@@ -241,13 +241,13 @@ async def ensure_required_channel_subscription(
         if isinstance(event, types.CallbackQuery):
             try:
                 await event.answer(error_text, show_alert=True)
-            except Exception:
-                pass
+            except Exception as exc:
+                logging.debug("Suppressed exception in bot/handlers/user/start.py: %s", exc)
             if message_obj:
                 try:
                     await message_obj.answer(error_text)
-                except Exception:
-                    pass
+                except Exception as exc:
+                    logging.debug("Suppressed exception in bot/handlers/user/start.py: %s", exc)
         else:
             await event.answer(error_text)
         return False
@@ -296,12 +296,12 @@ async def ensure_required_channel_subscription(
         if keyboard is None and message_obj:
             try:
                 await message_obj.answer(prompt_text)
-            except Exception:
-                pass
+            except Exception as exc:
+                logging.debug("Suppressed exception in bot/handlers/user/start.py: %s", exc)
         try:
             await event.answer(prompt_text, show_alert=True)
-        except Exception:
-            pass
+        except Exception as exc:
+            logging.debug("Suppressed exception in bot/handlers/user/start.py: %s", exc)
     else:
         await event.answer(prompt_text, reply_markup=keyboard)
 
@@ -462,8 +462,8 @@ async def start_command_handler(message: types.Message,
             logging.error(f"Failed to attribute user {user_id} to ad '{ad_start_param}': {e_attr}")
             try:
                 await session.rollback()
-            except Exception:
-                pass
+            except Exception as exc:
+                logging.debug("Suppressed exception in bot/handlers/user/start.py: %s", exc)
 
     if not await ensure_required_channel_subscription(message, settings, i18n,
                                                       current_lang, session,
@@ -574,8 +574,8 @@ async def verify_channel_subscription_callback(
     try:
         await callback.answer(_(key="channel_subscription_verified_success"),
                               show_alert=True)
-    except Exception:
-        pass
+    except Exception as exc:
+        logging.debug("Suppressed exception in bot/handlers/user/start.py: %s", exc)
 
     await send_main_menu(callback,
                          settings,

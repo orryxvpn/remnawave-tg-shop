@@ -30,20 +30,20 @@ async def pay_platega_callback_handler(
     if not i18n or not callback.message:
         try:
             await callback.answer(get_text("error_occurred_try_again"), show_alert=True)
-        except Exception:
-            pass
+        except Exception as exc:
+            logging.debug("Suppressed exception in bot/handlers/user/subscription/payments_platega.py: %s", exc)
         return
 
     if not platega_service or not platega_service.configured:
         logging.error("Platega service is not configured or unavailable.")
         try:
             await callback.answer(get_text("payment_service_unavailable_alert"), show_alert=True)
-        except Exception:
-            pass
+        except Exception as exc:
+            logging.debug("Suppressed exception in bot/handlers/user/subscription/payments_platega.py: %s", exc)
         try:
             await callback.message.edit_text(get_text("payment_service_unavailable"))
-        except Exception:
-            pass
+        except Exception as exc:
+            logging.debug("Suppressed exception in bot/handlers/user/subscription/payments_platega.py: %s", exc)
         return
 
     try:
@@ -56,8 +56,8 @@ async def pay_platega_callback_handler(
         logging.error(f"Invalid pay_platega data in callback: {callback.data}")
         try:
             await callback.answer(get_text("error_try_again"), show_alert=True)
-        except Exception:
-            pass
+        except Exception as exc:
+            logging.debug("Suppressed exception in bot/handlers/user/subscription/payments_platega.py: %s", exc)
         return
 
     user_id = callback.from_user.id
@@ -95,12 +95,12 @@ async def pay_platega_callback_handler(
         )
         try:
             await callback.message.edit_text(get_text("error_creating_payment_record"))
-        except Exception:
-            pass
+        except Exception as exc:
+            logging.debug("Suppressed exception in bot/handlers/user/subscription/payments_platega.py: %s", exc)
         try:
             await callback.answer(get_text("error_try_again"), show_alert=True)
-        except Exception:
-            pass
+        except Exception as exc:
+            logging.debug("Suppressed exception in bot/handlers/user/subscription/payments_platega.py: %s", exc)
         return
 
     payload_meta = json.dumps(
@@ -183,12 +183,12 @@ async def pay_platega_callback_handler(
                         ),
                         disable_web_page_preview=False,
                     )
-                except Exception:
-                    pass
+                except Exception as exc:
+                    logging.debug("Suppressed exception in bot/handlers/user/subscription/payments_platega.py: %s", exc)
             try:
                 await callback.answer()
-            except Exception:
-                pass
+            except Exception as exc:
+                logging.debug("Suppressed exception in bot/handlers/user/subscription/payments_platega.py: %s", exc)
             return
 
         logging.error(
@@ -210,9 +210,9 @@ async def pay_platega_callback_handler(
 
     try:
         await callback.message.edit_text(get_text("error_payment_gateway"))
-    except Exception:
-        pass
+    except Exception as exc:
+        logging.debug("Suppressed exception in bot/handlers/user/subscription/payments_platega.py: %s", exc)
     try:
         await callback.answer(get_text("error_payment_gateway"), show_alert=True)
-    except Exception:
-        pass
+    except Exception as exc:
+        logging.debug("Suppressed exception in bot/handlers/user/subscription/payments_platega.py: %s", exc)

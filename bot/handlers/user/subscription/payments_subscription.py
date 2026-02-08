@@ -27,8 +27,8 @@ async def select_subscription_period_callback_handler(
     if not i18n or not callback.message:
         try:
             await callback.answer(get_text("error_occurred_try_again"), show_alert=True)
-        except Exception:
-            pass
+        except Exception as exc:
+            logging.debug("Suppressed exception in bot/handlers/user/subscription/payments_subscription.py: %s", exc)
         return
 
     traffic_packages = getattr(settings, "traffic_packages", {}) or {}
@@ -40,8 +40,8 @@ async def select_subscription_period_callback_handler(
         logging.error(f"Invalid subscription period in callback_data: {callback.data}")
         try:
             await callback.answer(get_text("error_try_again"), show_alert=True)
-        except Exception:
-            pass
+        except Exception as exc:
+            logging.debug("Suppressed exception in bot/handlers/user/subscription/payments_subscription.py: %s", exc)
         return
 
     price_source = traffic_packages if traffic_mode else settings.subscription_options
@@ -111,8 +111,8 @@ async def select_subscription_period_callback_handler(
                 )
                 try:
                     await callback.answer(get_text("error_try_again"), show_alert=True)
-                except Exception:
-                    pass
+                except Exception as exc:
+                    logging.debug("Suppressed exception in bot/handlers/user/subscription/payments_subscription.py: %s", exc)
                 return
             price_rub = 0.0
             currency_symbol_val = "⭐"
@@ -122,8 +122,8 @@ async def select_subscription_period_callback_handler(
             )
             try:
                 await callback.answer(get_text("error_try_again"), show_alert=True)
-            except Exception:
-                pass
+            except Exception as exc:
+                logging.debug("Suppressed exception in bot/handlers/user/subscription/payments_subscription.py: %s", exc)
             return
 
     text_content = get_text("choose_payment_method_traffic") if traffic_mode else get_text("choose_payment_method")
@@ -150,5 +150,5 @@ async def select_subscription_period_callback_handler(
         await callback.message.answer(text_content, reply_markup=reply_markup)
     try:
         await callback.answer()
-    except Exception:
-        pass
+    except Exception as exc:
+        logging.debug("Suppressed exception in bot/handlers/user/subscription/payments_subscription.py: %s", exc)
