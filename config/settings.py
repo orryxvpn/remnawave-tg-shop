@@ -77,6 +77,14 @@ class Settings(BaseSettings):
     )
 
     WEBHOOK_BASE_URL: Optional[str] = None
+    TELEGRAM_WEBHOOK_PATH: str = Field(
+        default="/webhook/telegram",
+        description="Relative path for Telegram webhook endpoint",
+    )
+    TELEGRAM_WEBHOOK_SECRET: Optional[str] = Field(
+        default=None,
+        description="Secret token for Telegram webhook header validation",
+    )
 
     CRYPTOPAY_TOKEN: Optional[str] = None
     CRYPTOPAY_NETWORK: str = Field(default="mainnet")
@@ -114,6 +122,10 @@ class Settings(BaseSettings):
 
     YOOKASSA_ENABLED: bool = Field(default=True)
     STARS_ENABLED: bool = Field(default=True)
+    STARS_PROVIDER_TOKEN: Optional[str] = Field(
+        default="",
+        description="Provider token for Telegram invoices. For Stars (XTR) should stay empty.",
+    )
     PAYMENT_METHODS_ORDER: Optional[str] = Field(
         default=None,
         description="Comma-separated list of payment methods to show (e.g., severpay,freekassa,yookassa,platega,stars,cryptopay)",
@@ -201,7 +213,7 @@ class Settings(BaseSettings):
     CRYPT4_ENABLED: bool = Field(default=False, description="Enable happ crypt4 encryption for subscription URLs")
     CRYPT4_REDIRECT_URL: Optional[str] = Field(default=None, description="Base redirect URL used for the connect button when crypt4 is enabled")
 
-    WEB_SERVER_HOST: str = Field(default="0.0.0.0")
+    WEB_SERVER_HOST: str = Field(default="127.0.0.1")
     WEB_SERVER_PORT: int = Field(default=8080)
     LOGS_PAGE_SIZE: int = Field(default=10)
 
@@ -285,6 +297,22 @@ class Settings(BaseSettings):
             cleaned = self.USER_EXTERNAL_SQUAD_UUID.strip()
             if cleaned:
                 return cleaned
+        return None
+
+    @computed_field
+    @property
+    def telegram_webhook_path(self) -> str:
+        path = (self.TELEGRAM_WEBHOOK_PATH or "").strip() or "/webhook/telegram"
+        if not path.startswith("/"):
+            path = f"/{path}"
+        return path
+
+    @computed_field
+    @property
+    def telegram_full_webhook_url(self) -> Optional[str]:
+        base = self.WEBHOOK_BASE_URL
+        if base:
+            return f"{base.rstrip('/')}{self.telegram_webhook_path}"
         return None
 
     @computed_field
@@ -528,6 +556,18 @@ class Settings(BaseSettings):
     )
     LOG_CHAT_ID: Optional[int] = Field(default=None, description="Telegram chat/group ID for sending notifications")
     LOG_THREAD_ID: Optional[int] = Field(default=None, description="Thread ID for supergroup messages (optional)")
+    LOG_STORE_MESSAGE_CONTENT: bool = Field(
+        default=False,
+        description="Store message/callback content in message logs",
+    )
+    LOG_STORE_RAW_UPDATES: bool = Field(
+        default=False,
+        description="Store raw update previews in message logs",
+    )
+    LOG_EXPORT_INCLUDE_SENSITIVE: bool = Field(
+        default=False,
+        description="Include content/raw update fields in admin CSV export",
+    )
     
     @field_validator('LOG_LEVEL', mode='before')
     @classmethod
@@ -558,11 +598,28 @@ class Settings(BaseSettings):
         return sanitized
 
     @field_validator(
+        'TELEGRAM_WEBHOOK_PATH',
+        mode='before',
+    )
+    @classmethod
+    def normalize_webhook_path(cls, v):
+        if not isinstance(v, str):
+            return "/webhook/telegram"
+        cleaned = v.strip()
+        if not cleaned:
+            return "/webhook/telegram"
+        if not cleaned.startswith("/"):
+            cleaned = f"/{cleaned}"
+        return cleaned
+
+    @field_validator(
         'REQUIRED_CHANNEL_LINK',
         'PLATEGA_RETURN_URL',
         'PLATEGA_FAILED_URL',
         'SEVERPAY_RETURN_URL',
         'CRYPT4_REDIRECT_URL',
+        'TELEGRAM_WEBHOOK_SECRET',
+        'PANEL_WEBHOOK_SECRET',
         mode='before',
     )
     @classmethod
@@ -618,6 +675,11 @@ def get_settings() -> Settings:
             if not _settings_instance.PANEL_API_URL:
                 logging.warning(
                     "CRITICAL: PANEL_API_URL is not set. Panel integration will not work."
+                )
+            if _settings_instance.WEBHOOK_BASE_URL and not _settings_instance.TELEGRAM_WEBHOOK_SECRET:
+                logging.warning(
+                    "WARNING: TELEGRAM_WEBHOOK_SECRET is empty while webhook mode is enabled. "
+                    "Set TELEGRAM_WEBHOOK_SECRET to validate X-Telegram-Bot-Api-Secret-Token header."
                 )
             if not _settings_instance.YOOKASSA_SHOP_ID or not _settings_instance.YOOKASSA_SECRET_KEY:
                 logging.warning(

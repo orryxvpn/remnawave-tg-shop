@@ -81,7 +81,7 @@ class StarsService:
                 title=description,
                 description=description,
                 payload=payload,
-                provider_token="",
+                provider_token=self.settings.STARS_PROVIDER_TOKEN or "",
                 currency="XTR",
                 prices=prices,
             )

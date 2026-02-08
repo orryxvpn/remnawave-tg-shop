@@ -1,4 +1,5 @@
 import logging
+from urllib.parse import urlsplit, urlunsplit
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
 from sqlalchemy.orm import sessionmaker
 
@@ -9,12 +10,27 @@ from .migrator import run_database_migrations
 async_engine = None
 
 
+def _mask_db_url(url: str) -> str:
+    try:
+        parsed = urlsplit(url)
+        if parsed.username is None:
+            return url
+        username = parsed.username
+        host = parsed.hostname or ""
+        port = f":{parsed.port}" if parsed.port else ""
+        netloc = f"{username}:***@{host}{port}"
+        return urlunsplit((parsed.scheme, netloc, parsed.path, parsed.query, parsed.fragment))
+    except Exception:
+        return "<masked>"
+
+
 def init_db_connection(settings: Settings) -> sessionmaker:
     global async_engine
 
     if async_engine is None:
+        masked_url = _mask_db_url(settings.DATABASE_URL)
         logging.info(
-            f"Attempting to create SQLAlchemy engine with URL: {settings.DATABASE_URL}"
+            f"Attempting to create SQLAlchemy engine with URL: {masked_url}"
         )
         async_engine = create_async_engine(
             settings.DATABASE_URL,
