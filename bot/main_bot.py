@@ -144,6 +144,18 @@ async def on_startup_configured(dispatcher: Dispatcher):
     except Exception as e:
         logging.error(f"STARTUP: Failed to initialize message queue manager: {e}", exc_info=True)
 
+    # Initialize promo discount expiration worker
+    try:
+        promo_code_service: Optional[PromoCodeService] = dispatcher.get("promo_code_service")
+        if promo_code_service:
+            await promo_code_service.setup_discount_expiration_worker(async_session_factory)
+            logging.info("STARTUP: Promo discount expiration worker initialized")
+    except Exception as e:
+        logging.error(
+            f"STARTUP: Failed to initialize promo discount expiration worker: {e}",
+            exc_info=True,
+        )
+
     # Automatic sync on startup
     try:
         logging.info("STARTUP: Running automatic panel sync...")

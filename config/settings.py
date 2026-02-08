@@ -652,6 +652,10 @@ class Settings(BaseSettings):
     LOG_PROMO_ACTIVATIONS: bool = Field(default=True, description="Send notifications for promo code activations")
     LOG_TRIAL_ACTIVATIONS: bool = Field(default=True, description="Send notifications for trial activations")
     LOG_SUSPICIOUS_ACTIVITY: bool = Field(default=True, description="Send notifications for suspicious promo attempts")
+    DISCOUNT_PROMO_PAYMENT_TIMEOUT_MINUTES: int = Field(
+        default=10,
+        description="How long a discount promo reservation is kept before user payment",
+    )
 
     model_config = SettingsConfigDict(env_file='.env',
                                       env_file_encoding='utf-8',
