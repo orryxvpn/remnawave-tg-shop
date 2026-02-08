@@ -4,8 +4,7 @@ from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sess
 from sqlalchemy.orm import sessionmaker
 
 from config.settings import Settings
-from .models import Base
-from .migrator import run_database_migrations
+from .alembic_runner import run_alembic_migrations
 
 async_engine = None
 
@@ -46,7 +45,7 @@ def init_db_connection(settings: Settings) -> sessionmaker:
         autoflush=False,
     )
     logging.info(
-        f"SQLAlchemy Async Engine and SessionFactory configured for PostgreSQL."
+        "SQLAlchemy Async Engine and SessionFactory configured for PostgreSQL."
     )
     return local_async_session_factory
 
@@ -77,12 +76,8 @@ async def init_db(settings: Settings, session_factory: sessionmaker):
             "async_engine is not initialized. Call init_db_connection and get session_factory first."
         )
 
-    async with async_engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
-        await conn.run_sync(run_database_migrations)
-    logging.info(
-        "PostgreSQL database initialized/checked successfully using SQLAlchemy."
-    )
+    await run_alembic_migrations(settings, async_engine)
+    logging.info("PostgreSQL database migrations checked/applied via Alembic.")
 
     async with session_factory() as session:
         from .dal.panel_sync_dal import get_panel_sync_status, update_panel_sync_status
