@@ -51,12 +51,10 @@ async def process_successful_payment(session: AsyncSession, bot: Bot,
     auto_renew_subscription_id_str = metadata.get(
         "auto_renew_for_subscription_id")
 
-    # For auto-renew payments, payment_db_id may be absent. In that case,
-    # we will create/ensure a payment record idempotently using provider payment id.
     if (
         not user_id_str
         or (not subscription_months_str and not traffic_gb_str)
-        or (not payment_db_id_str and not auto_renew_subscription_id_str)
+        or not payment_db_id_str
     ):
         logging.error(
             f"Missing crucial metadata for payment: {payment_info_from_webhook.get('id')}, metadata: {metadata}"
@@ -68,57 +66,37 @@ async def process_successful_payment(session: AsyncSession, bot: Bot,
         user_id = int(user_id_str)
         subscription_months = float(subscription_months_str or 0)
         traffic_amount_gb = float(traffic_gb_str) if traffic_gb_str else subscription_months
-        payment_db_id = int(
-            payment_db_id_str) if payment_db_id_str and payment_db_id_str.isdigit() else None
-        is_auto_renew = bool(auto_renew_subscription_id_str and not payment_db_id and sale_mode != "traffic")
+        if not payment_db_id_str.isdigit():
+            logging.error(
+                "Invalid payment_db_id metadata for payment %s: %s",
+                payment_info_from_webhook.get("id"),
+                payment_db_id_str,
+            )
+            return
+        payment_db_id = int(payment_db_id_str)
+        is_auto_renew = bool(auto_renew_subscription_id_str and sale_mode != "traffic")
         promo_code_id = int(
             promo_code_id_str
         ) if promo_code_id_str and promo_code_id_str.isdigit() else None
 
         amount_data = payment_info_from_webhook.get("amount", {})
-        months_for_record = int(subscription_months) if sale_mode != "traffic" else 0
         payment_value = float(amount_data.get("value", 0.0))
         yk_payment_id_from_hook = payment_info_from_webhook.get("id")
 
-        payment_record = None
-        # If this is an auto-renewal (no payment_db_id in metadata), ensure a payment record exists
-        if payment_db_id is None and auto_renew_subscription_id_str:
-            try:
-                if not yk_payment_id_from_hook:
-                    logging.error(
-                        "Auto-renew webhook missing YooKassa payment id; cannot ensure payment record."
-                    )
-                    return
-                from db.dal import payment_dal as _payment_dal
-                payment_record = await _payment_dal.get_payment_by_provider_payment_id(
-                    session, yk_payment_id_from_hook
-                )
-                if not payment_record:
-                    payment_record = await _payment_dal.ensure_payment_with_provider_id(
-                        session,
-                        user_id=user_id,
-                        amount=payment_value,
-                        currency=amount_data.get("currency", "RUB"),
-                        months=months_for_record or 1,
-                        description=payment_info_from_webhook.get(
-                            "description") or f"Auto-renewal for {months_for_record or subscription_months} months",
-                        provider="yookassa",
-                        provider_payment_id=yk_payment_id_from_hook,
-                    )
-                payment_db_id = payment_record.payment_id
-            except Exception as e_ensure:
-                logging.error(
-                    f"Failed to ensure payment record for auto-renew webhook (YK {payment_info_from_webhook.get('id')}): {e_ensure}",
-                    exc_info=True,
-                )
-                return
-        elif payment_db_id is not None:
-            payment_record = await payment_dal.get_payment_by_db_id(session, payment_db_id)
-            if not payment_record:
-                logging.error(
-                    f"Payment record {payment_db_id} not found for YK ID {yk_payment_id_from_hook}."
-                )
-                return
+        payment_record = await payment_dal.get_payment_by_db_id(session, payment_db_id)
+        if not payment_record:
+            logging.error(
+                f"Payment record {payment_db_id} not found for YK ID {yk_payment_id_from_hook}."
+            )
+            return
+        if payment_record.user_id != user_id:
+            logging.error(
+                "Payment ownership mismatch for payment %s: metadata user_id=%s, db user_id=%s",
+                payment_db_id,
+                user_id,
+                payment_record.user_id,
+            )
+            return
 
         # Provider-backed verification (defense-in-depth): verify actual YooKassa payment state
         if yk_payment_id_from_hook and yookassa_service and yookassa_service.configured:
@@ -151,7 +129,8 @@ async def process_successful_payment(session: AsyncSession, bot: Bot,
                     user_id,
                 )
                 return
-            if payment_db_id and str(provider_metadata.get("payment_db_id") or "") != str(payment_db_id):
+            provider_payment_db_id = str(provider_metadata.get("payment_db_id") or "").strip()
+            if provider_payment_db_id != str(payment_db_id):
                 logging.error(
                     "YooKassa webhook verification failed: payment_db_id mismatch for payment %s (provider=%s, expected=%s)",
                     yk_payment_id_from_hook,
@@ -237,6 +216,13 @@ async def process_successful_payment(session: AsyncSession, bot: Bot,
                 session,
                 payment_db_id,
             )
+            if payment_before_update and payment_before_update.status == "succeeded":
+                logging.info(
+                    "YooKassa webhook ignored: payment %s already succeeded (db_id=%s)",
+                    yk_payment_id_from_hook,
+                    payment_db_id,
+                )
+                return
         should_send_lknpd_receipt = bool(
             lknpd_service
             and lknpd_service.configured

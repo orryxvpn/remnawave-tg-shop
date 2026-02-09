@@ -77,11 +77,12 @@ async def on_startup_configured(dispatcher: Dispatcher):
             else:
                 logging.info("STARTUP: Telegram webhook currently empty (will set).")
 
+            telegram_webhook_secret = (settings.TELEGRAM_WEBHOOK_SECRET or "").strip() or None
             set_success = await bot.set_webhook(
                 url=full_telegram_webhook_url,
                 drop_pending_updates=True,
                 allowed_updates=dispatcher.resolve_used_update_types(),
-                secret_token=settings.TELEGRAM_WEBHOOK_SECRET,
+                secret_token=telegram_webhook_secret,
             )
             if set_success:
                 logging.info("STARTUP: bot.set_webhook returned SUCCESS (True).")

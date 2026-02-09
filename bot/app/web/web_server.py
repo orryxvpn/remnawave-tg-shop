@@ -41,6 +41,7 @@ async def build_and_start_web_app(
     setup_application(app, dp, bot=bot)
 
     telegram_uses_webhook_mode = bool(settings.WEBHOOK_BASE_URL)
+    telegram_webhook_secret = (settings.TELEGRAM_WEBHOOK_SECRET or "").strip() or None
 
     if telegram_uses_webhook_mode:
         telegram_webhook_path = settings.telegram_webhook_path
@@ -49,13 +50,13 @@ async def build_and_start_web_app(
             SimpleRequestHandler(
                 dispatcher=dp,
                 bot=bot,
-                secret_token=settings.TELEGRAM_WEBHOOK_SECRET,
+                secret_token=telegram_webhook_secret,
             ),
         )
         logging.info(
             "Telegram webhook route configured at: [POST] %s (secret_token=%s)",
             telegram_webhook_path,
-            "set" if settings.TELEGRAM_WEBHOOK_SECRET else "not_set",
+            "set" if telegram_webhook_secret else "not_set",
         )
 
     from bot.handlers.user.payment import yookassa_webhook_route
