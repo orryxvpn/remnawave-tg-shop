@@ -27,11 +27,51 @@ class StarsService:
         self.subscription_service = subscription_service
         self.referral_service = referral_service
 
-    async def create_invoice(self, session: AsyncSession, user_id: int, months: int,
+    def _resolve_base_stars_price(self, months: float, sale_mode: str) -> Optional[int]:
+        stars_price_source = (
+            self.settings.stars_traffic_packages
+            if sale_mode == "traffic"
+            else self.settings.stars_subscription_options
+        )
+
+        if sale_mode != "traffic":
+            months_key = int(months) if float(months).is_integer() else months
+            base_price = stars_price_source.get(months_key)
+            if base_price is not None:
+                return base_price
+
+            if float(months).is_integer():
+                return stars_price_source.get(float(months_key))
+
+            return None
+
+        base_price = stars_price_source.get(months)
+        if base_price is not None:
+            return base_price
+
+        for package_size, package_price in stars_price_source.items():
+            if math.isclose(float(package_size), float(months), rel_tol=0.0, abs_tol=1e-9):
+                return package_price
+
+        return None
+
+    async def create_invoice(self, session: AsyncSession, user_id: int, months: float,
                              stars_price: int, description: str, sale_mode: str = "subscription",
                              promo_code_service=None) -> Optional[int]:
-        # Apply active discount if exists (Stars use ceiling rounding)
-        original_stars_price = stars_price
+        # Always resolve base price server-side to avoid trusting callback payload.
+        resolved_base_price = self._resolve_base_stars_price(months, sale_mode)
+        if resolved_base_price is None:
+            logging.warning(
+                "Stars base price not found for sale_mode=%s months=%s, fallback to callback price.",
+                sale_mode,
+                months,
+            )
+            original_stars_price = stars_price
+        else:
+            original_stars_price = int(resolved_base_price)
+
+        # Invoice amount starts from the base price and discount is applied once.
+        stars_price = original_stars_price
         discount_amount_stars = None
         promo_code_id = None
 
@@ -41,14 +81,16 @@ class StarsService:
 
             # Apply discount and round up using ceiling
             final_price_float, discount_float, promo_code_id = await apply_discount_to_payment(
-                session, user_id, float(stars_price), promo_code_service
+                session, user_id, float(original_stars_price), promo_code_service
             )
             if discount_float:
-                # Apply ceiling rounding for fractional Stars amounts
                 stars_price = math.ceil(final_price_float)
                 discount_amount_stars = original_stars_price - stars_price
                 logging.info(
-                    f"Stars discount applied: {original_stars_price} -> {final_price_float:.2f} -> {stars_price} (ceiling)"
+                    "Stars discount applied: %s -> %.2f -> %s (ceiling)",
+                    original_stars_price,
+                    final_price_float,
+                    stars_price,
                 )
 
         payment_record_data = {
