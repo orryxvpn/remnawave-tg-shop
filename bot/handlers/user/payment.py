@@ -1,6 +1,5 @@
 import logging
 import json
-import asyncio
 from datetime import datetime, timezone, timedelta
 from typing import Optional, Dict, Any
 
@@ -25,8 +24,6 @@ from bot.services.notification_service import NotificationService
 from bot.keyboards.inline.user_keyboards import get_connect_and_main_keyboard
 from bot.utils.text_sanitizer import sanitize_display_name, username_for_display
 from bot.utils.config_link import prepare_config_links
-
-payment_processing_lock = asyncio.Lock()
 
 YOOKASSA_EVENT_PAYMENT_SUCCEEDED = 'payment.succeeded'
 YOOKASSA_EVENT_PAYMENT_CANCELED = 'payment.canceled'
@@ -210,6 +207,12 @@ async def process_successful_payment(session: AsyncSession, bot: Bot,
 
     try:
         yk_payment_id_from_hook = payment_info_from_webhook.get("id")
+        provider_payment_id = str(yk_payment_id_from_hook or "").strip()
+        if not provider_payment_id:
+            raise ValueError(
+                f"Missing provider payment id in successful YooKassa webhook for payment {payment_db_id}"
+            )
+
         payment_before_update = None
         if payment_db_id is not None:
             payment_before_update = await payment_dal.get_payment_by_db_id(
@@ -223,6 +226,19 @@ async def process_successful_payment(session: AsyncSession, bot: Bot,
                     payment_db_id,
                 )
                 return
+
+        marked = await payment_dal.mark_provider_payment_succeeded_once(
+            session,
+            payment_db_id,
+            provider_payment_id,
+        )
+        if not marked:
+            logging.info(
+                "YooKassa webhook: payment %s already processed atomically",
+                payment_db_id,
+            )
+            return
+
         should_send_lknpd_receipt = bool(
             lknpd_service
             and lknpd_service.configured
@@ -298,18 +314,6 @@ async def process_successful_payment(session: AsyncSession, bot: Bot,
             )
             raise Exception(
                 f"Subscription Error: Failed to activate for user {user_id}")
-
-        updated_payment_record = await payment_dal.update_payment_status_by_db_id(
-            session,
-            payment_db_id=payment_db_id,
-            new_status=payment_info_from_webhook.get("status", "succeeded"),
-            yk_payment_id=yk_payment_id_from_hook)
-        if not updated_payment_record:
-            logging.error(
-                f"Failed to update payment record {payment_db_id} for yk_id {yk_payment_id_from_hook}"
-            )
-            raise Exception(
-                f"DB Error: Could not update payment record {payment_db_id}")
 
         base_subscription_end_date = activation_details['end_date']
         final_end_date_for_user = base_subscription_end_date
@@ -619,9 +623,8 @@ async def yookassa_webhook_route(request: web.Request):
             "payment_method": pm_dict,
         }
 
-        async with payment_processing_lock:
-            async with async_session_factory() as session:
-                try:
+        async with async_session_factory() as session:
+            try:
                     if notification_object.event == YOOKASSA_EVENT_PAYMENT_SUCCEEDED:
                         if payment_dict_for_processing.get(
                                 "paid") and payment_dict_for_processing.get(
@@ -726,14 +729,14 @@ async def yookassa_webhook_route(request: web.Request):
                                             logging.exception("Failed to cancel bind-only payment auth")
                             except Exception:
                                 logging.exception("Failed to handle bind-only waiting_for_capture webhook")
-                except Exception as e_webhook_db_processing:
-                    await session.rollback()
-                    logging.error(
-                        f"Error processing YooKassa webhook event '{notification_object.event}' "
-                        f"for YK Payment ID {payment_dict_for_processing.get('id')} in DB transaction: {e_webhook_db_processing}",
-                        exc_info=True)
-                    return web.Response(
-                        status=200, text="ok_internal_processing_error_logged")
+            except Exception as e_webhook_db_processing:
+                await session.rollback()
+                logging.error(
+                    f"Error processing YooKassa webhook event '{notification_object.event}' "
+                    f"for YK Payment ID {payment_dict_for_processing.get('id')} in DB transaction: {e_webhook_db_processing}",
+                    exc_info=True)
+                return web.Response(
+                    status=200, text="ok_internal_processing_error_logged")
 
         return web.Response(status=200, text="ok")
 

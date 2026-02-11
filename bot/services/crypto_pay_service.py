@@ -279,6 +279,11 @@ class CryptoPayService:
                     sale_mode=sale_mode,
                     traffic_gb=traffic_gb if sale_mode == "traffic" else None,
                 )
+                if not activation or not activation.get("end_date"):
+                    raise RuntimeError(
+                        f"CryptoPay webhook: activation failed for payment {payment_db_id}"
+                    )
+
                 referral_bonus = None
                 if sale_mode != "traffic":
                     referral_bonus = await referral_service.apply_referral_bonuses_for_payment(

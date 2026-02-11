@@ -272,6 +272,10 @@ class PlategaService:
                         sale_mode=sale_mode,
                         traffic_gb=payment_months if sale_mode == "traffic" else None,
                     )
+                    if not activation or not activation.get("end_date"):
+                        raise RuntimeError(
+                            f"Platega webhook: activation failed for payment {payment.payment_id}"
+                        )
 
                     referral_bonus = None
                     if sale_mode != "traffic":

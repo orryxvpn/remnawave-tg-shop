@@ -140,6 +140,25 @@ def _run_legacy_migrator_compatibility(connection: Connection) -> None:
             connection.execute(
                 text("ALTER TABLE promo_codes ADD COLUMN discount_percentage INTEGER")
             )
+        if "current_activations" not in promo_columns:
+            connection.execute(
+                text(
+                    "ALTER TABLE promo_codes ADD COLUMN current_activations INTEGER NOT NULL DEFAULT 0"
+                )
+            )
+        else:
+            connection.execute(
+                text(
+                    "UPDATE promo_codes SET current_activations = 0 "
+                    "WHERE current_activations IS NULL"
+                )
+            )
+            connection.execute(
+                text("ALTER TABLE promo_codes ALTER COLUMN current_activations SET DEFAULT 0")
+            )
+            connection.execute(
+                text("ALTER TABLE promo_codes ALTER COLUMN current_activations SET NOT NULL")
+            )
         if "bonus_days" in promo_columns:
             connection.execute(
                 text("ALTER TABLE promo_codes ALTER COLUMN bonus_days DROP NOT NULL")

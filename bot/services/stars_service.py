@@ -144,45 +144,56 @@ class StarsService:
         payment_record = await payment_dal.get_payment_by_db_id(session, payment_db_id)
         promo_code_id_from_payment = payment_record.promo_code_id if payment_record else None
 
+        activation_details = None
+        referral_bonus = None
         try:
-            await payment_dal.update_provider_payment_and_status(
-                session, payment_db_id,
-                message.successful_payment.provider_payment_charge_id,
-                "succeeded")
+            provider_payment_id = str(
+                message.successful_payment.provider_payment_charge_id
+                or f"stars:{payment_db_id}"
+            )
+            marked = await payment_dal.mark_provider_payment_succeeded_once(
+                session,
+                payment_db_id,
+                provider_payment_id,
+            )
+            if not marked:
+                logging.info(
+                    "Stars payment %s already processed atomically",
+                    payment_db_id,
+                )
+                return
+
+            activation_details = await self.subscription_service.activate_subscription(
+                session,
+                message.from_user.id,
+                int(months) if sale_mode != "traffic" else 0,
+                float(stars_amount),
+                payment_db_id,
+                promo_code_id_from_payment=promo_code_id_from_payment,
+                provider="telegram_stars",
+                sale_mode=sale_mode,
+                traffic_gb=months if sale_mode == "traffic" else None,
+            )
+            if not activation_details or not activation_details.get("end_date"):
+                raise RuntimeError(
+                    f"Failed to activate subscription after stars payment {payment_db_id}"
+                )
+
+            if sale_mode != "traffic":
+                referral_bonus = await self.referral_service.apply_referral_bonuses_for_payment(
+                    session,
+                    message.from_user.id,
+                    int(months) or 1,
+                    current_payment_db_id=payment_db_id,
+                    skip_if_active_before_payment=False,
+                )
             await session.commit()
         except Exception as e_upd:
             await session.rollback()
             logging.error(
-                f"Failed to update stars payment record {payment_db_id}: {e_upd}",
+                f"Failed to process stars payment record {payment_db_id}: {e_upd}",
                 exc_info=True)
             return
-
-        activation_details = await self.subscription_service.activate_subscription(
-            session,
-            message.from_user.id,
-            int(months) if sale_mode != "traffic" else 0,
-            float(stars_amount),
-            payment_db_id,
-            promo_code_id_from_payment=promo_code_id_from_payment,
-            provider="telegram_stars",
-            sale_mode=sale_mode,
-            traffic_gb=months if sale_mode == "traffic" else None,
-        )
-        if not activation_details or not activation_details.get("end_date"):
-            logging.error(
-                f"Failed to activate subscription after stars payment for user {message.from_user.id}")
-            return
-
-        referral_bonus = None
-        if sale_mode != "traffic":
-            referral_bonus = await self.referral_service.apply_referral_bonuses_for_payment(
-                session,
-                message.from_user.id,
-                int(months) or 1,
-                current_payment_db_id=payment_db_id,
-                skip_if_active_before_payment=False,
-            )
-        await session.commit()
 
         applied_days = referral_bonus.get("referee_bonus_applied_days") if referral_bonus else None
         final_end = referral_bonus.get("referee_new_end_date") if referral_bonus else None
