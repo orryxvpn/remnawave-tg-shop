@@ -568,6 +568,11 @@ class Settings(BaseSettings):
         description="Include content/raw update fields in admin CSV export",
     )
     
+    LOG_ADMIN_HIDE: bool = Field(
+        default=False,
+        description="Hide admin-generated events from admin logs UI and CSV export",
+    )
+
     @field_validator('LOG_LEVEL', mode='before')
     @classmethod
     def normalize_log_level(cls, v):

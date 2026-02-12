@@ -119,6 +119,18 @@
     </details>
 
     <details>
+    <summary><b>Настройки логирования</b></summary>
+
+    | Переменная | Описание | Пример |
+    | --- | --- | --- |
+    | `LOGS_PAGE_SIZE` | Количество записей на странице в разделе админ-логов. | `10` |
+    | `LOG_STORE_MESSAGE_CONTENT` | Сохранять ли содержимое сообщений/колбэков в БД логов (`true`/`false`). | `false` |
+    | `LOG_STORE_RAW_UPDATES` | Сохранять ли превью сырого Telegram update в БД логов (`true`/`false`). | `false` |
+    | `LOG_EXPORT_INCLUDE_SENSITIVE` | Добавлять ли в CSV экспорт чувствительные поля (`content`, `raw_update_preview`). | `false` |
+    | `LOG_ADMIN_HIDE` | Скрывать админские события (`ADMIN_IDS`) в интерфейсе «Все логи сообщений» и в CSV экспорте (`true`/`false`). Логи продолжают записываться в БД. | `true` |
+    </details>
+
+    <details>
     <summary><b>Настройки подписок</b></summary>
 
     Для каждого периода (1, 3, 6, 12 месяцев) можно настроить доступность и цены:

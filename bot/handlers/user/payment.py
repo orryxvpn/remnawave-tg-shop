@@ -645,8 +645,20 @@ async def yookassa_webhook_route(request: web.Request):
                             yookassa_service,
                             lknpd_service)
                         if not processed:
-                            await session.rollback()
-                            return web.Response(status=503, text="yookassa_processing_failed_retry")
+                            # process_successful_payment uses False for permanent business failures
+                            # (e.g. user not found / metadata issues) and may have already updated
+                            # the payment status. Commit the status and ACK the webhook to stop
+                            # indefinite provider retries.
+                            try:
+                                await session.commit()
+                            except Exception:
+                                await session.rollback()
+                                logging.exception(
+                                    "Failed to commit failure status for YooKassa payment %s",
+                                    payment_dict_for_processing.get("id"),
+                                )
+                                return web.Response(status=503, text="yookassa_processing_failed_retry")
+                            return web.Response(status=200, text="ok")
                         await session.commit()
                     else:
                         logging.warning(
