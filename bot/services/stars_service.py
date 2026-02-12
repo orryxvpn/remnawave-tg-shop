@@ -58,17 +58,28 @@ class StarsService:
     async def create_invoice(self, session: AsyncSession, user_id: int, months: float,
                              stars_price: int, description: str, sale_mode: str = "subscription",
                              promo_code_service=None) -> Optional[int]:
-        # Always resolve base price server-side to avoid trusting callback payload.
+        # Always resolve base price server-side and reject unknown packages.
         resolved_base_price = self._resolve_base_stars_price(months, sale_mode)
         if resolved_base_price is None:
             logging.warning(
-                "Stars base price not found for sale_mode=%s months=%s, fallback to callback price.",
+                "Stars invoice rejected: base price not found for sale_mode=%s months=%s.",
                 sale_mode,
                 months,
             )
-            original_stars_price = stars_price
-        else:
-            original_stars_price = int(resolved_base_price)
+            return None
+
+        original_stars_price = int(resolved_base_price)
+
+        # Detect callback tampering (or stale callback payload) and prefer server-side price.
+        if int(stars_price) != original_stars_price:
+            logging.warning(
+                "Stars callback price mismatch for user %s: callback=%s, resolved=%s, sale_mode=%s, months=%s",
+                user_id,
+                stars_price,
+                original_stars_price,
+                sale_mode,
+                months,
+            )
 
         # Invoice amount starts from the base price and discount is applied once.
         stars_price = original_stars_price

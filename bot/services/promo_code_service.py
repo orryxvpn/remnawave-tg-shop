@@ -378,8 +378,11 @@ class PromoCodeService:
         payment_id: int
     ) -> bool:
         """
-        Consume active discount: link reservation to payment and clear active discount.
-        Call this AFTER successful payment.
+        Consume discount after successful payment.
+
+        The payment record is the source of truth. Even if the active reservation was
+        concurrently expired/cleared, we still record promo activation and reconcile
+        current_activations so successful discounted payments are always accounted for.
         """
         payment_record = await payment_dal.get_payment_by_db_id(session, payment_id)
         if not payment_record:
@@ -402,49 +405,11 @@ class PromoCodeService:
             )
             return False
 
-        active_discount = await active_discount_dal.get_active_discount(
-            session,
-            user_id,
-            include_expired=True,
-        )
-        now_utc = datetime.now(timezone.utc)
-
-        if not active_discount:
-            logging.info(
-                "Discount reservation missing at consumption time (user=%s, promo=%s, payment=%s)",
-                user_id,
-                promo_code_id,
-                payment_id,
-            )
-            return False
-
-        if active_discount.promo_code_id != promo_code_id:
-            logging.info(
-                "Active discount promo %s differs from payment promo %s; skipping consumption.",
-                active_discount.promo_code_id,
-                promo_code_id,
-            )
-            return False
-
-        if active_discount.expires_at <= now_utc:
-            logging.info(
-                "Discount reservation expired before payment consumption (user=%s, promo=%s)",
-                user_id,
-                promo_code_id,
-            )
-            cleared = await active_discount_dal.clear_active_discount_if_matches(
-                session,
-                user_id=user_id,
-                promo_code_id=promo_code_id,
-                expires_at_lte=now_utc,
-            )
-            if cleared:
-                await promo_code_dal.decrement_promo_code_usage(session, promo_code_id)
-            return False
-
         existing_activation = await promo_code_dal.get_user_activation_for_promo(
             session, promo_code_id, user_id
         )
+
+        activation_created = False
         if existing_activation:
             if existing_activation.payment_id is None:
                 updated_payment = await promo_code_dal.set_activation_payment_id(
@@ -471,12 +436,43 @@ class PromoCodeService:
                     promo_code_id,
                 )
                 return False
+            activation_created = True
 
-        await active_discount_dal.clear_active_discount_if_matches(
+        active_discount = await active_discount_dal.get_active_discount(
             session,
-            user_id=user_id,
-            promo_code_id=promo_code_id,
+            user_id,
+            include_expired=True,
         )
+
+        # Reservation is best-effort cleanup at this point; payment success already happened.
+        if active_discount and active_discount.promo_code_id == promo_code_id:
+            await active_discount_dal.clear_active_discount_if_matches(
+                session,
+                user_id=user_id,
+                promo_code_id=promo_code_id,
+            )
+        elif active_discount and active_discount.promo_code_id != promo_code_id:
+            logging.info(
+                "Active discount promo %s differs from payment promo %s during consumption.",
+                active_discount.promo_code_id,
+                promo_code_id,
+            )
+        else:
+            logging.info(
+                "Discount reservation already absent at consumption time (user=%s, promo=%s, payment=%s)",
+                user_id,
+                promo_code_id,
+                payment_id,
+            )
+
+        # If reservation was already expired/removed and we had to create activation now,
+        # restore current_activations to match the successful payment.
+        if activation_created:
+            await promo_code_dal.increment_promo_code_usage(
+                session,
+                promo_code_id,
+                allow_overflow=True,
+            )
 
         await session.flush()
         logging.info(

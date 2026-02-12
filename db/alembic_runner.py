@@ -257,6 +257,12 @@ async def run_alembic_migrations(settings: Settings, async_engine: AsyncEngine) 
     """Apply Alembic migrations with bootstrap for existing installations."""
 
     alembic_config = _build_alembic_config(settings)
+    allow_bootstrap_without_legacy = os.getenv("ALEMBIC_ALLOW_STAMP_WITHOUT_LEGACY", "").lower() in {
+        "1",
+        "true",
+        "yes",
+        "on",
+    }
 
     async with async_engine.begin() as async_connection:
         (
@@ -268,17 +274,24 @@ async def run_alembic_migrations(settings: Settings, async_engine: AsyncEngine) 
         )
 
         if not has_alembic_version and has_users_table:
-            if not has_legacy_migrator_table:
+            if not has_legacy_migrator_table and not allow_bootstrap_without_legacy:
                 raise RuntimeError(
                     "Alembic bootstrap refused: found existing users table without "
                     "alembic_version and without legacy schema_migrations marker. "
-                    "Cannot safely determine migration baseline."
+                    "Set ALEMBIC_ALLOW_STAMP_WITHOUT_LEGACY=true to explicitly allow "
+                    f"stamping baseline {_BASELINE_REVISION} after manual verification."
                 )
 
-            logging.info(
-                "Alembic: applying legacy migrator compatibility fixes before stamp."
-            )
-            await async_connection.run_sync(_run_legacy_migrator_compatibility)
+            if has_legacy_migrator_table:
+                logging.info(
+                    "Alembic: applying legacy migrator compatibility fixes before stamp."
+                )
+                await async_connection.run_sync(_run_legacy_migrator_compatibility)
+            else:
+                logging.warning(
+                    "Alembic: existing users table without legacy schema_migrations; "
+                    "proceeding with explicit bootstrap override flag."
+                )
 
             logging.info(
                 "Alembic: existing schema detected without alembic_version; stamping %s.",
