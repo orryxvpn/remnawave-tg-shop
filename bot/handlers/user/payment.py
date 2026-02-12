@@ -37,7 +37,7 @@ async def process_successful_payment(session: AsyncSession, bot: Bot,
                                      subscription_service: SubscriptionService,
                                      referral_service: ReferralService,
                                      yookassa_service: Optional[YooKassaService] = None,
-                                     lknpd_service: Optional[LknpdService] = None):
+                                     lknpd_service: Optional[LknpdService] = None) -> bool:
     metadata = payment_info_from_webhook.get("metadata", {})
     user_id_str = metadata.get("user_id")
     subscription_months_str = metadata.get("subscription_months")
@@ -56,7 +56,7 @@ async def process_successful_payment(session: AsyncSession, bot: Bot,
         logging.error(
             f"Missing crucial metadata for payment: {payment_info_from_webhook.get('id')}, metadata: {metadata}"
         )
-        return
+        return False
 
     db_user = None
     try:
@@ -69,7 +69,7 @@ async def process_successful_payment(session: AsyncSession, bot: Bot,
                 payment_info_from_webhook.get("id"),
                 payment_db_id_str,
             )
-            return
+            return False
         payment_db_id = int(payment_db_id_str)
         is_auto_renew = bool(auto_renew_subscription_id_str and sale_mode != "traffic")
         promo_code_id = int(
@@ -85,7 +85,7 @@ async def process_successful_payment(session: AsyncSession, bot: Bot,
             logging.error(
                 f"Payment record {payment_db_id} not found for YK ID {yk_payment_id_from_hook}."
             )
-            return
+            return False
         if payment_record.user_id != user_id:
             logging.error(
                 "Payment ownership mismatch for payment %s: metadata user_id=%s, db user_id=%s",
@@ -93,7 +93,7 @@ async def process_successful_payment(session: AsyncSession, bot: Bot,
                 user_id,
                 payment_record.user_id,
             )
-            return
+            return False
 
         # Provider-backed verification (defense-in-depth): verify actual YooKassa payment state
         if yk_payment_id_from_hook and yookassa_service and yookassa_service.configured:
@@ -103,7 +103,7 @@ async def process_successful_payment(session: AsyncSession, bot: Bot,
                     "YooKassa webhook verification failed: payment %s not found via provider API",
                     yk_payment_id_from_hook,
                 )
-                return
+                return False
 
             provider_status = str(provider_payment_info.get("status") or "")
             provider_paid = bool(provider_payment_info.get("paid"))
@@ -114,7 +114,7 @@ async def process_successful_payment(session: AsyncSession, bot: Bot,
                     provider_status,
                     provider_paid,
                 )
-                return
+                return False
 
             provider_metadata_raw = provider_payment_info.get("metadata") or {}
             provider_metadata = provider_metadata_raw if isinstance(provider_metadata_raw, dict) else {}
@@ -125,7 +125,7 @@ async def process_successful_payment(session: AsyncSession, bot: Bot,
                     provider_metadata.get("user_id"),
                     user_id,
                 )
-                return
+                return False
             provider_payment_db_id = str(provider_metadata.get("payment_db_id") or "").strip()
             if provider_payment_db_id != str(payment_db_id):
                 logging.error(
@@ -134,7 +134,7 @@ async def process_successful_payment(session: AsyncSession, bot: Bot,
                     provider_metadata.get("payment_db_id"),
                     payment_db_id,
                 )
-                return
+                return False
 
             try:
                 provider_amount = float(provider_payment_info.get("amount_value") or 0.0)
@@ -145,7 +145,7 @@ async def process_successful_payment(session: AsyncSession, bot: Bot,
                         payment_value,
                         provider_amount,
                     )
-                    return
+                    return False
                 if payment_record and round(float(payment_record.amount), 2) != round(provider_amount, 2):
                     logging.error(
                         "YooKassa webhook verification failed: DB amount mismatch for payment %s (db %.2f vs provider %.2f)",
@@ -153,7 +153,7 @@ async def process_successful_payment(session: AsyncSession, bot: Bot,
                         float(payment_record.amount),
                         provider_amount,
                     )
-                    return
+                    return False
                 provider_currency = str(provider_payment_info.get("amount_currency") or "").upper()
                 if payment_record and provider_currency and str(payment_record.currency or "").upper() != provider_currency:
                     logging.error(
@@ -162,20 +162,20 @@ async def process_successful_payment(session: AsyncSession, bot: Bot,
                         payment_record.currency,
                         provider_currency,
                     )
-                    return
+                    return False
             except Exception as e_amount_verify:
                 logging.error(
                     "YooKassa webhook verification failed for payment %s: cannot validate amount (%s)",
                     yk_payment_id_from_hook,
                     e_amount_verify,
                 )
-                return
+                return False
 
         if payment_record and payment_record.status == "succeeded":
             logging.info(
                 f"Skipping duplicate YooKassa webhook for payment {payment_db_id} (YK: {yk_payment_id_from_hook})."
             )
-            return
+            return True
 
         db_user = await user_dal.get_user_by_id(session, user_id)
         if not db_user:
@@ -187,7 +187,7 @@ async def process_successful_payment(session: AsyncSession, bot: Bot,
                 session, payment_db_id, "failed_user_not_found",
                 payment_info_from_webhook.get("id"))
 
-            return
+            return False
 
     except (TypeError, ValueError) as e:
         logging.error(
@@ -203,7 +203,7 @@ async def process_successful_payment(session: AsyncSession, bot: Bot,
                 logging.error(
                     f"Failed to update payment status after metadata error: {e_upd}"
                 )
-        return
+        return False
 
     try:
         yk_payment_id_from_hook = payment_info_from_webhook.get("id")
@@ -225,7 +225,7 @@ async def process_successful_payment(session: AsyncSession, bot: Bot,
                     yk_payment_id_from_hook,
                     payment_db_id,
                 )
-                return
+                return True
 
         marked = await payment_dal.mark_provider_payment_succeeded_once(
             session,
@@ -237,7 +237,7 @@ async def process_successful_payment(session: AsyncSession, bot: Bot,
                 "YooKassa webhook: payment %s already processed atomically",
                 payment_db_id,
             )
-            return
+            return True
 
         should_send_lknpd_receipt = bool(
             lknpd_service
@@ -270,7 +270,7 @@ async def process_successful_payment(session: AsyncSession, bot: Bot,
                     else:
                         display_last4 = None
                 else:
-                    # Wallets, SBP, etc. — use provided title/type; no last4
+                    # Wallets, SBP, etc. - use provided title/type; no last4
                     display_network = title or (pm_type.upper() if pm_type else "Payment method")
                     display_last4 = None
 
@@ -379,7 +379,7 @@ async def process_successful_payment(session: AsyncSession, bot: Bot,
             details_message = _(
                 "payment_successful_traffic_full",
                 traffic_gb=traffic_label,
-                end_date=final_end_date_for_user.strftime('%Y-%m-%d') if final_end_date_for_user else "—",
+                end_date=final_end_date_for_user.strftime('%Y-%m-%d') if final_end_date_for_user else "-",
                 config_link=config_link_text,
             )
             details_markup = get_connect_and_main_keyboard(
@@ -469,6 +469,8 @@ async def process_successful_payment(session: AsyncSession, bot: Bot,
             )
         except Exception as e:
             logging.error(f"Failed to send payment notification: {e}")
+
+        return True
 
     except Exception as e_process:
         logging.error(
@@ -568,7 +570,7 @@ async def yookassa_webhook_route(request: web.Request):
             logging.error(
                 f"YooKassa webhook payment {payment_data_from_notification.id} lacks metadata. Cannot process."
             )
-            return web.Response(status=200, text="ok_error_no_metadata")
+            return web.Response(status=503, text="yookassa_missing_metadata")
 
         # Safely extract payment_method details (SDK objects may not have to_dict)
         pm_obj = getattr(payment_data_from_notification, 'payment_method', None)
@@ -636,12 +638,15 @@ async def yookassa_webhook_route(request: web.Request):
                     if payment_dict_for_processing.get(
                             "paid") and payment_dict_for_processing.get(
                                 "status") == "succeeded":
-                        await process_successful_payment(
+                        processed = await process_successful_payment(
                             session, bot, payment_dict_for_processing,
                             i18n_instance, settings, panel_service,
                             subscription_service, referral_service,
                             yookassa_service,
                             lknpd_service)
+                        if not processed:
+                            await session.rollback()
+                            return web.Response(status=503, text="yookassa_processing_failed_retry")
                         await session.commit()
                     else:
                         logging.warning(
@@ -649,6 +654,8 @@ async def yookassa_webhook_route(request: web.Request):
                             f"but data not as expected: status='{payment_dict_for_processing.get('status')}', "
                             f"paid='{payment_dict_for_processing.get('paid')}'"
                         )
+                        await session.rollback()
+                        return web.Response(status=503, text="yookassa_invalid_succeeded_payload")
                 elif notification_object.event == YOOKASSA_EVENT_PAYMENT_CANCELED:
                     await process_cancelled_payment(
                         session, bot, payment_dict_for_processing,
@@ -743,7 +750,7 @@ async def yookassa_webhook_route(request: web.Request):
                     f"for YK Payment ID {payment_dict_for_processing.get('id')} in DB transaction: {e_webhook_db_processing}",
                     exc_info=True)
                 return web.Response(
-                    status=200, text="ok_internal_processing_error_logged")
+                    status=503, text="yookassa_processing_error_retry")
 
         return web.Response(status=200, text="ok")
 
@@ -754,5 +761,5 @@ async def yookassa_webhook_route(request: web.Request):
         logging.error(
             f"YooKassa Webhook general processing error: {e_general_webhook}",
             exc_info=True)
-        return web.Response(status=200,
-                            text="ok_general_internal_error_logged")
+        return web.Response(status=503,
+                            text="yookassa_general_error_retry")

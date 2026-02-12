@@ -407,20 +407,26 @@ class PromoCodeService:
             user_id,
             include_expired=True,
         )
-        if active_discount and active_discount.promo_code_id != promo_code_id:
+        now_utc = datetime.now(timezone.utc)
+
+        if not active_discount:
             logging.info(
-                "Active discount promo %s differs from payment promo %s; leaving active discount intact.",
+                "Discount reservation missing at consumption time (user=%s, promo=%s, payment=%s)",
+                user_id,
+                promo_code_id,
+                payment_id,
+            )
+            return False
+
+        if active_discount.promo_code_id != promo_code_id:
+            logging.info(
+                "Active discount promo %s differs from payment promo %s; skipping consumption.",
                 active_discount.promo_code_id,
                 promo_code_id,
             )
-            active_discount = None
+            return False
 
-        now_utc = datetime.now(timezone.utc)
-        if (
-            active_discount
-            and active_discount.promo_code_id == promo_code_id
-            and active_discount.expires_at <= now_utc
-        ):
+        if active_discount.expires_at <= now_utc:
             logging.info(
                 "Discount reservation expired before payment consumption (user=%s, promo=%s)",
                 user_id,
@@ -466,8 +472,11 @@ class PromoCodeService:
                 )
                 return False
 
-        if active_discount and active_discount.promo_code_id == promo_code_id:
-            await active_discount_dal.clear_active_discount(session, user_id)
+        await active_discount_dal.clear_active_discount_if_matches(
+            session,
+            user_id=user_id,
+            promo_code_id=promo_code_id,
+        )
 
         await session.flush()
         logging.info(
