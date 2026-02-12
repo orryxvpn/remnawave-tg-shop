@@ -225,7 +225,14 @@ async def mark_provider_payment_processing_once(
         Payment.status != "processing",
     ]
     if expected_status_prefix:
-        conditions.append(Payment.status.like(f"{expected_status_prefix}%"))
+        if expected_status_prefix == "pending":
+            # YooKassa may keep authorized payments in waiting_for_capture
+            # before reporting a final successful capture webhook.
+            conditions.append(
+                Payment.status.in_(("waiting_for_capture", "pending", "pending_yookassa"))
+            )
+        else:
+            conditions.append(Payment.status.like(f"{expected_status_prefix}%"))
 
     stmt = (
         update(Payment)

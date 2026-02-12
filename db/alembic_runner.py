@@ -70,6 +70,45 @@ def _run_legacy_migrator_compatibility(connection: Connection) -> None:
         connection.execute(
             text(
                 """
+                UPDATE users
+                SET referral_code = NULLIF(UPPER(BTRIM(referral_code)), '')
+                WHERE referral_code IS NOT NULL
+                """
+            )
+        )
+        connection.execute(
+            text(
+                """
+                WITH duplicate_codes AS (
+                    SELECT
+                        user_id,
+                        ROW_NUMBER() OVER (
+                            PARTITION BY referral_code
+                            ORDER BY user_id
+                        ) AS rn
+                    FROM users
+                    WHERE referral_code IS NOT NULL
+                )
+                UPDATE users AS u
+                SET referral_code = UPPER(
+                    SUBSTRING(
+                        md5(
+                            u.user_id::text
+                            || clock_timestamp()::text
+                            || random()::text
+                        )
+                        FROM 1 FOR 9
+                    )
+                )
+                FROM duplicate_codes AS d
+                WHERE u.user_id = d.user_id
+                  AND d.rn > 1
+                """
+            )
+        )
+        connection.execute(
+            text(
+                """
                 WITH generated_codes AS (
                     SELECT
                         user_id,
@@ -84,7 +123,7 @@ def _run_legacy_migrator_compatibility(connection: Connection) -> None:
                             )
                         ) AS referral_code
                     FROM users
-                    WHERE referral_code IS NULL OR referral_code = ''
+                    WHERE referral_code IS NULL
                 )
                 UPDATE users AS u
                 SET referral_code = g.referral_code
@@ -99,16 +138,6 @@ def _run_legacy_migrator_compatibility(connection: Connection) -> None:
                 CREATE UNIQUE INDEX IF NOT EXISTS uq_users_referral_code
                 ON users (referral_code)
                 WHERE referral_code IS NOT NULL
-                """
-            )
-        )
-        connection.execute(
-            text(
-                """
-                UPDATE users
-                SET referral_code = UPPER(referral_code)
-                WHERE referral_code IS NOT NULL
-                  AND referral_code <> UPPER(referral_code)
                 """
             )
         )

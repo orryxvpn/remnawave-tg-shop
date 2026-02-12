@@ -624,7 +624,7 @@ async def yookassa_webhook_route(request: web.Request):
             logging.error(
                 f"YooKassa webhook payment {payment_data_from_notification.id} lacks metadata. Cannot process."
             )
-            return web.Response(status=503, text="yookassa_missing_metadata")
+            return web.Response(status=200, text="yookassa_missing_metadata")
 
         # Safely extract payment_method details (SDK objects may not have to_dict)
         pm_obj = getattr(payment_data_from_notification, 'payment_method', None)
