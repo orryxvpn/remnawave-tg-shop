@@ -13,8 +13,9 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = "0003_promo_current_activations_not_null"
-down_revision: Union[str, Sequence[str], None] = "0002_active_discount_expires_at"
+revision: str = "0003_promo_curr_act_not_null"
+down_revision: Union[str, Sequence[str],
+                     None] = "0002_active_discount_expires_at"
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 
@@ -41,11 +42,13 @@ def upgrade() -> None:
     if not inspector.has_table("promo_codes"):
         return
 
-    promo_columns = {column["name"] for column in inspector.get_columns("promo_codes")}
+    promo_columns = {column["name"]
+                     for column in inspector.get_columns("promo_codes")}
     if "current_activations" not in promo_columns:
         op.add_column(
             "promo_codes",
-            sa.Column("current_activations", sa.Integer(), nullable=False, server_default=sa.text("0")),
+            sa.Column("current_activations", sa.Integer(),
+                      nullable=False, server_default=sa.text("0")),
         )
         return
 
@@ -80,7 +83,8 @@ def downgrade() -> None:
     if not inspector.has_table("promo_codes"):
         return
 
-    promo_columns = {column["name"] for column in inspector.get_columns("promo_codes")}
+    promo_columns = {column["name"]
+                     for column in inspector.get_columns("promo_codes")}
     if "current_activations" in promo_columns:
         op.alter_column(
             "promo_codes",
