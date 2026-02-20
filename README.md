@@ -103,13 +103,13 @@
     | `FREEKASSA_PAYMENT_IP` | Внешний IP вашего сервера, который будет передаваться в запрос оплаты. |
     | `FREEKASSA_PAYMENT_METHOD_ID` | ID метода оплаты через магазин FreeKassa. По умолчанию `44`. |
     | `STARS_ENABLED` | Включить/выключить Telegram Stars (`true`/`false`). |
-| `STARS_PROVIDER_TOKEN` | Токен провайдера Telegram invoice. Для Stars (XTR) оставить пустым. |
-    | `PLATEGA_ENABLED`| Включить/выключить Platega (`true`/`false`). |
-    | `PLATEGA_MERCHANT_ID`| MerchantId из личного кабинета Platega. |
-    | `PLATEGA_SECRET`| API секрет для запросов Platega. |
-    | `PLATEGA_PAYMENT_METHOD`| ID способа оплаты (2 — SBP QR, 10 — РФ карты, 12 — международные карты, 13 — crypto). |
-    | `PLATEGA_RETURN_URL`| (Опционально) URL редиректа после успешной оплаты. По умолчанию ссылка на бота. |
-    | `PLATEGA_FAILED_URL`| (Опционально) URL редиректа при ошибке/отмене. По умолчанию как `PLATEGA_RETURN_URL`. |
+    | `STARS_PROVIDER_TOKEN` | Токен провайдера Telegram invoice. Для Stars (XTR) оставить пустым. |
+    | `PLATEGA_ENABLED` | Включить/выключить Platega (`true`/`false`). |
+    | `PLATEGA_MERCHANT_ID` | MerchantId из личного кабинета Platega. |
+    | `PLATEGA_SECRET` | API секрет для запросов Platega. |
+    | `PLATEGA_PAYMENT_METHOD` | ID способа оплаты (2 — SBP QR, 10 — РФ карты, 12 — международные карты, 13 — crypto). |
+    | `PLATEGA_RETURN_URL` | (Опционально) URL редиректа после успешной оплаты. По умолчанию ссылка на бота. |
+    | `PLATEGA_FAILED_URL` | (Опционально) URL редиректа при ошибке/отмене. По умолчанию как `PLATEGA_RETURN_URL`. |
     | `SEVERPAY_ENABLED` | Включить/выключить SeverPay (`true`/`false`). |
     | `SEVERPAY_MID` | MID магазина в SeverPay. |
     | `SEVERPAY_TOKEN` | Секрет/токен для подписи запросов SeverPay. |
