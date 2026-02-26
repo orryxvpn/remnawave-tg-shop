@@ -3,6 +3,7 @@ from aiogram.types import InlineKeyboardMarkup, WebAppInfo
 from typing import Dict, Optional, List, Tuple
 
 from config.settings import Settings
+from bot.utils.button_factory import build_inline_button
 
 
 def get_main_menu_inline_keyboard(
@@ -15,38 +16,64 @@ def get_main_menu_inline_keyboard(
 
     if show_trial_button and settings.TRIAL_ENABLED:
         builder.row(
-            InlineKeyboardButton(text=_(key="menu_activate_trial_button"),
-                                 callback_data="main_action:request_trial"))
+            build_inline_button(
+                i18n=i18n_instance,
+                lang=lang,
+                text_key="menu_activate_trial_button",
+                callback_data="main_action:request_trial",
+            )
+        )
 
     builder.row(
-        InlineKeyboardButton(text=_(key="menu_subscribe_inline"),
-                             callback_data="main_action:subscribe"))
+        build_inline_button(
+            i18n=i18n_instance,
+            lang=lang,
+            text_key="menu_subscribe_inline",
+            callback_data="main_action:subscribe",
+        )
+    )
     builder.row(
-        InlineKeyboardButton(
-            text=_(key="menu_my_subscription_inline"),
+        build_inline_button(
+            i18n=i18n_instance,
+            lang=lang,
+            text_key="menu_my_subscription_inline",
             callback_data="main_action:my_subscription",
         )
     )
 
-    promo_button = InlineKeyboardButton(
-        text=_(key="menu_apply_promo_button"),
-        callback_data="main_action:apply_promo")
+    promo_button = build_inline_button(
+        i18n=i18n_instance,
+        lang=lang,
+        text_key="menu_apply_promo_button",
+        callback_data="main_action:apply_promo",
+    )
     if settings.REFERRAL_ENABLED:
-        referral_button = InlineKeyboardButton(
-            text=_(key="menu_referral_inline"),
-            callback_data="main_action:referral")
+        referral_button = build_inline_button(
+            i18n=i18n_instance,
+            lang=lang,
+            text_key="menu_referral_inline",
+            callback_data="main_action:referral",
+        )
         builder.row(referral_button, promo_button)
     else:
         builder.row(promo_button)
 
-    language_button = InlineKeyboardButton(
-        text=_(key="menu_language_settings_inline"),
-        callback_data="main_action:language")
+    language_button = build_inline_button(
+        i18n=i18n_instance,
+        lang=lang,
+        text_key="menu_language_settings_inline",
+        callback_data="main_action:language",
+    )
     status_button_list = []
     if settings.SERVER_STATUS_URL:
         status_button_list.append(
-            InlineKeyboardButton(text=_(key="menu_server_status_button"),
-                                 url=settings.SERVER_STATUS_URL))
+            build_inline_button(
+                i18n=i18n_instance,
+                lang=lang,
+                text_key="menu_server_status_button",
+                url=settings.SERVER_STATUS_URL,
+            )
+        )
 
     if status_button_list:
         builder.row(language_button, *status_button_list)
@@ -55,13 +82,23 @@ def get_main_menu_inline_keyboard(
 
     if settings.SUPPORT_LINK:
         builder.row(
-            InlineKeyboardButton(text=_(key="menu_support_button"),
-                                 url=settings.SUPPORT_LINK))
+            build_inline_button(
+                i18n=i18n_instance,
+                lang=lang,
+                text_key="menu_support_button",
+                url=settings.SUPPORT_LINK,
+            )
+        )
 
     if settings.TERMS_OF_SERVICE_URL:
         builder.row(
-            InlineKeyboardButton(text=_(key="menu_terms_button"),
-                                 url=settings.TERMS_OF_SERVICE_URL))
+            build_inline_button(
+                i18n=i18n_instance,
+                lang=lang,
+                text_key="menu_terms_button",
+                url=settings.TERMS_OF_SERVICE_URL,
+            )
+        )
 
     return builder.as_markup()
 
