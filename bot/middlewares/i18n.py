@@ -17,7 +17,7 @@ class JsonI18n:
         self.domain = domain
         self.path = path
         self.default_lang = default
-        self.locales_data: Dict[str, Dict[str, str]] = {}
+        self.locales_data: Dict[str, Dict[str, Any]] = {}
         self._load_locales()
         logging.info(
             f"JsonI18n initialized. Loaded languages: {list(self.locales_data.keys())}. Default: {self.default_lang}"
@@ -44,45 +44,65 @@ class JsonI18n:
                         f"Error loading locale {lang_code} from {file_path}: {e_load}",
                         exc_info=True)
 
-    def gettext(self, lang_code: Optional[str], key: str, **kwargs) -> str:
-        # Determine effective language with robust fallback
+    def _get_effective_lang_code(self, lang_code: Optional[str]) -> str:
         if lang_code and lang_code in self.locales_data:
-            effective_lang_code = lang_code
-        elif self.default_lang in self.locales_data:
-            effective_lang_code = self.default_lang
-        elif 'en' in self.locales_data:
-            effective_lang_code = 'en'
-        else:
-            effective_lang_code = lang_code or self.default_lang
+            return lang_code
+        if self.default_lang in self.locales_data:
+            return self.default_lang
+        if 'en' in self.locales_data:
+            return 'en'
+        return lang_code or self.default_lang
+
+    def _extract_text(self, entry: Any) -> Optional[str]:
+        if isinstance(entry, str):
+            return entry
+        if isinstance(entry, dict):
+            text = entry.get("text")
+            return text if isinstance(text, str) else None
+        return None
+
+    def get_entry(self, lang_code: Optional[str], key: str) -> str | dict | None:
+        effective_lang_code = self._get_effective_lang_code(lang_code)
 
         lang_data = self.locales_data.get(effective_lang_code)
         if lang_data is None:
-            # Try explicit fallback to English if available
             fallback_data = self.locales_data.get('en')
             if fallback_data is not None:
-                text = fallback_data.get(key)
-                if text is not None:
-                    try:
-                        return text.format(**kwargs) if kwargs else text
-                    except Exception:
-                        return text
+                return fallback_data.get(key)
             logging.warning(
                 f"No language data for '{effective_lang_code}' (default '{self.default_lang}' also missing). Key '{key}' will be returned as is."
             )
+            return None
+
+        entry = lang_data.get(key)
+        if entry is None and effective_lang_code != self.default_lang:
+            default_lang_data = self.locales_data.get(self.default_lang, {})
+            entry = default_lang_data.get(key)
+        return entry
+
+    def get_button_meta(self, lang_code: Optional[str], key: str) -> Dict[str, Optional[str]]:
+        entry = self.get_entry(lang_code, key)
+        if not isinstance(entry, dict):
+            return {"color": "default", "custom_emoji_id": None}
+
+        color = entry.get("color")
+        custom_emoji_id = entry.get("custom_emoji_id")
+        return {
+            "color": color if isinstance(color, str) else "default",
+            "custom_emoji_id": custom_emoji_id if isinstance(custom_emoji_id, str) else None,
+        }
+
+    def gettext(self, lang_code: Optional[str], key: str, **kwargs) -> str:
+        entry = self.get_entry(lang_code, key)
+        text = self._extract_text(entry)
+        effective_lang_code = self._get_effective_lang_code(lang_code)
+
+        if text is None:
+            logging.warning(
+                f"Translation key '{key}' not found for lang '{effective_lang_code}' or default '{self.default_lang}'. Returning key."
+            )
             return key.format(**kwargs) if kwargs else key
 
-        text = lang_data.get(key)
-        if text is None:
-            if effective_lang_code != self.default_lang:
-                default_lang_data = self.locales_data.get(
-                    self.default_lang, {})
-                text = default_lang_data.get(key)
-
-            if text is None:
-                logging.warning(
-                    f"Translation key '{key}' not found for lang '{effective_lang_code}' or default '{self.default_lang}'. Returning key."
-                )
-                return key.format(**kwargs) if kwargs else key
         try:
             return text.format(**kwargs) if kwargs else text
         except KeyError as e_format:

@@ -1,23 +1,71 @@
 {
   "welcome": "Добро пожаловать, {user_name}!",
   "channel_subscription_required": "Чтобы пользоваться ботом, подпишитесь на канал и нажмите \"Проверить подписку\".",
-  "channel_subscription_join_button": "Перейти в канал",
-  "channel_subscription_verify_button": "Проверить подписку",
+  "channel_subscription_join_button": {
+    "text": "Перейти в канал",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "channel_subscription_verify_button": {
+    "text": "Проверить подписку",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "channel_subscription_check_failed": "Не удалось проверить подписку. Попробуйте позже или обратитесь в поддержку.",
   "channel_subscription_verified_success": "✅ Подписка подтверждена! Можно продолжать.",
   "main_menu_greeting": "Привет, {user_name}! 👋\nЧто бы вы хотели сделать?",
-  "menu_activate_trial_button": "🆓 Пробный период",
-  "menu_subscribe_inline": "🚀 Купить",
-  "menu_my_subscription_inline": "🔐 Моя подписка",
+  "menu_activate_trial_button": {
+    "text": "🆓 Пробный период",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "menu_subscribe_inline": {
+    "text": "🚀 Купить",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "menu_my_subscription_inline": {
+    "text": "🔐 Моя подписка",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "no_subscription_options_available": "Выдача подписки не настроена администратором бота",
-  "menu_referral_inline": "🎁 Рефералы",
+  "menu_referral_inline": {
+    "text": "🎁 Рефералы",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "referral_no_bonuses_configured": "Извините, реферальная программа в данный момент отключена",
-  "menu_apply_promo_button": "🎟 Промокод",
-  "menu_language_settings_inline": "🌐 Язык",
-  "menu_server_status_button": "📊 Статус",
-  "menu_support_button": "💬 Поддержка",
-  "menu_terms_button": "📄 Условия сервиса",
-  "back_to_main_menu_button": "⬅️ Назад",
+  "menu_apply_promo_button": {
+    "text": "🎟 Промокод",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "menu_language_settings_inline": {
+    "text": "🌐 Язык",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "menu_server_status_button": {
+    "text": "📊 Статус",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "menu_support_button": {
+    "text": "💬 Поддержка",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "menu_terms_button": {
+    "text": "📄 Условия сервиса",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "back_to_main_menu_button": {
+    "text": "⬅️ Назад",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "choose_language": "Выберите язык / Select language:",
   "language_set_alert": "Язык изменен!",
   "error_occurred_try_again": "Произошла ошибка, попробуйте снова.",
@@ -26,38 +74,104 @@
   "main_menu_unknown_action": "Неизвестное действие.",
   "select_subscription_period": "Выберите срок подписки:",
   "select_traffic_package": "Выберите пакет трафика:",
-  "subscribe_for_months_button": "{months} мес. - {price} {currency_symbol}",
-  "buy_traffic_package_button": "{traffic_gb} ГБ - {price} {currency_symbol}",
+  "subscribe_for_months_button": {
+    "text": "{months} мес. - {price} {currency_symbol}",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "buy_traffic_package_button": {
+    "text": "{traffic_gb} ГБ - {price} {currency_symbol}",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "choose_payment_method": "Выберите способ оплаты:",
   "choose_payment_method_traffic": "Выберите способ оплаты пакета трафика:",
-  "pay_button": "💳 Оплатить",
-  "pay_with_yookassa_button": "💳 ЮKassa",
+  "pay_button": {
+    "text": "💳 Оплатить",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "pay_with_yookassa_button": {
+    "text": "💳 ЮKassa",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "yookassa_autopay_flow_prompt": "Автопродление включено. Выберите, как оплатить подписку:",
-  "yookassa_autopay_pay_saved_card_button": "💳 Оплата привязанной картой",
-  "yookassa_autopay_pay_new_card_button": "➕ Оплата новой картой",
+  "yookassa_autopay_pay_saved_card_button": {
+    "text": "💳 Оплата привязанной картой",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "yookassa_autopay_pay_new_card_button": {
+    "text": "➕ Оплата новой картой",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "yookassa_autopay_choose_saved_card": "Выберите привязанную карту для списания:",
   "yookassa_autopay_no_saved_cards": "Сохранённых карт нет. Оплатите новой картой или привяжите карту в разделе «Способы оплаты».",
-  "back_to_autopay_method_choice_button": "⬅️ Назад",
+  "back_to_autopay_method_choice_button": {
+    "text": "⬅️ Назад",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "yookassa_autopay_charge_initiated": "Запрос на списание с выбранной карты отправлен. Сообщим, как только платёж завершится.",
-  "pay_with_sbp_button": "📱 СБП",
-  "pay_with_platega_button": "💳 Platega (СБП/карты)",
-  "pay_with_severpay_button": "💳 SeverPay",
-  "back_to_payment_methods_button": "⬅️ Назад",
-  "pay_with_cryptopay_button": "💎 CryptoBot",
-  "pay_with_stars_button": "🌟 Звезды Telegram",
-  "connect_button": "🔗 Подключиться",
-
-  "devices_button": "📱 Мои устройства ({current_devices}/{max_devices})",
+  "pay_with_sbp_button": {
+    "text": "📱 СБП",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "pay_with_platega_button": {
+    "text": "💳 Platega (СБП/карты)",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "pay_with_severpay_button": {
+    "text": "💳 SeverPay",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "back_to_payment_methods_button": {
+    "text": "⬅️ Назад",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "pay_with_cryptopay_button": {
+    "text": "💎 CryptoBot",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "pay_with_stars_button": {
+    "text": "🌟 Звезды Telegram",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "connect_button": {
+    "text": "🔗 Подключиться",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "devices_button": {
+    "text": "📱 Мои устройства ({current_devices}/{max_devices})",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "my_devices_details": "📱 <b>Список ваших устройств ({current_devices}/{max_devices})</b>\n\n{devices}\n\nВы можете отключить устройство, выбрав его в списке ниже.\n<blockquote><i>Примечание: Если вы отключили устройство, оно будет автоматически подключено заново при следующем использовании. Перед удалением убедитесь, что вы удалили подписку из приложения.</i></blockquote>",
   "no_devices_details_found_message": "📱 <b>Список ваших устройств</b>\n\nУ вас пока нет устройств.\nВам доступно {max_devices} устройств. Подключить их можно через кнопку \"🔗 Подключиться\" в меню подписки.",
   "device_details": "{index}) <b>{device_model} ({platform} {os_version})</b>\nДата подключения: <b>{created_at_str}</b>\nUser Agent: <b>{user_agent}</b>\nHWID: <code>{hwid}</code>",
-  "disconnect_device_button": "🚫 Отключить {hwid} ({index})",
+  "disconnect_device_button": {
+    "text": "🚫 Отключить {hwid} ({index})",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "device_disconnected": "Устройство успешно отключено.",
   "no_devices_found": "Ошибка загрузки списка устройств.",
   "devices_unlimited_label": "Без ограничений",
   "my_devices_feature_disabled": "Раздел \"Мои устройства\" сейчас недоступен.",
-
-  "cancel_button": "❌ Отмена",
+  "cancel_button": {
+    "text": "❌ Отмена",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "payment_description_subscription": "Оплата подписки на {months} мес.",
   "payment_description_traffic": "Пакет трафика {traffic_gb} ГБ",
   "payment_link_message": "Для оплаты подписки на {months} мес., нажмите кнопку ниже:",
@@ -86,49 +200,125 @@
   "promo_input_cancelled_short": "Ввод промокода отменен.",
   "trial_feature_disabled": "Пробный период в данный момент недоступен.",
   "trial_already_had_subscription_or_trial": "Вы уже использовали пробный период или у вас была платная подписка. Пробный период доступен только один раз для новых пользователей.",
-  "trial_confirm_activate_button": "✅ Активировать!",
+  "trial_confirm_activate_button": {
+    "text": "✅ Активировать!",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "trial_activated_alert": "Пробный период активирован!",
   "trial_activated_details_message": "✅ Пробный доступ активирован!\nВаш триал на {days} дн. действует до {end_date}.\n\nКлюч подключения:\n<code>{config_link}</code>\n\nЧтобы подключиться, перейдите по ссылке и следуйте инструкции 👇",
-  "yes_button": "Да",
-  "no_button": "Нет",
+  "yes_button": {
+    "text": "Да",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "no_button": {
+    "text": "Нет",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "referral_program_info_new": "🎁 <b>Реферальная программа</b>\n\n📊 <b>Твоя статистика:</b>\n👥 Приглашено друзей: <b>{invited_count}</b>\n💳 Купили подписку: <b>{purchased_count}</b>\n\n🔗 Твоя ссылка:\n<code>{referral_link}</code>\n\n💰 <b>Бонусы за приглашения:</b>\n{bonus_details}\n\n📢 Поделись ссылкой с друзьями и получай бонусы!",
   "referral_bonus_per_period": "\n\n🎁 За {months}-мес. подписку друга:\n  ➢ Вы: <b>{inviter_bonus_days} дн.</b>\n  ➢ Друг: <b>{referee_bonus_days} дн.</b>",
   "referral_not_available_for_traffic": "Для пакетов трафика реферальные бонусы не начисляются.",
-  "referral_share_message_button": "📩 Сообщение для друга",
+  "referral_share_message_button": {
+    "text": "📩 Сообщение для друга",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "referral_friend_message": "🚀 Привет! Попробуй этот VPN - быстрый, надёжный и доступный!\n\n🎁 По моей ссылке тебе дадут бонусные дни к подписке!\n\n{referral_link}",
   "friend_placeholder": "друг",
   "referral_bonus_inviter_notification_extended": "🎉 Поздравляем! Ваш друг {referee_name} оплатил подписку. Вам начислено {days} бонусных дней! Ваша подписка теперь активна до {new_end_date}.",
   "referral_bonus_inviter_notification_new_sub": "🎉 Поздравляем! Ваш друг {referee_name} оплатил подписку. Вам начислена бонусная подписка на {days} дней! Она активна до {new_end_date}.",
   "user_is_banned": "🚫 Ваш аккаунт заблокирован. Пожалуйста, свяжитесь со службой поддержки.",
   "admin_panel_title": "Панель администратора",
-  "admin_stats_button": "📊 Статистика",
-  "admin_broadcast_button": "📢 Рассылка",
-  "admin_create_promo_button": "🎁 Создать промо",
-  "admin_create_bulk_promo_button": "📦 Массовое создание",
-  "admin_ban_user_button": "🚫 Забанить",
-  "admin_unban_user_button": "✅ Разбанить",
-  "admin_view_banned_users_button": "📜 Бан-лист",
-  "admin_view_logs_menu_button": "📄 Логи",
-  "admin_sync_panel_button": "🔄 Синхронизация",
+  "admin_stats_button": {
+    "text": "📊 Статистика",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_broadcast_button": {
+    "text": "📢 Рассылка",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_create_promo_button": {
+    "text": "🎁 Создать промо",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_create_bulk_promo_button": {
+    "text": "📦 Массовое создание",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_ban_user_button": {
+    "text": "🚫 Забанить",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_unban_user_button": {
+    "text": "✅ Разбанить",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_view_banned_users_button": {
+    "text": "📜 Бан-лист",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_view_logs_menu_button": {
+    "text": "📄 Логи",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_sync_panel_button": {
+    "text": "🔄 Синхронизация",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "admin_unknown_action": "Неизвестное действие администратора.",
   "admin_stats_and_monitoring_section": "📊 Статистика",
   "admin_user_management_section": "👥 Пользователи",
   "admin_promo_marketing_section": "🎁 Промокоды",
   "admin_system_functions_section": "⚙️ Система",
   "admin_ban_management_section": "🚫 Блокировки",
-  "admin_users_search_button": "🔍 Поиск",
-  "admin_users_management_button": "👥 Список пользователей",
+  "admin_users_search_button": {
+    "text": "🔍 Поиск",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_users_management_button": {
+    "text": "👥 Список пользователей",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "admin_users_list_header": "👥 <b>Список пользователей</b>\n\nСтраница {current}/{total} ({total_users} пользователей)",
-  "admin_user_back_to_list_button": "⬅️ К списку",
-  "back_to_user_management_button": "⬅️ К пользователям",
-  "back_to_admin_panel_button": "⬅️ В админку",
+  "admin_user_back_to_list_button": {
+    "text": "⬅️ К списку",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "back_to_user_management_button": {
+    "text": "⬅️ К пользователям",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "back_to_admin_panel_button": {
+    "text": "⬅️ В админку",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "admin_stats_header": "📊 Статистика Бота",
   "admin_enhanced_users_stats_header": "Пользователи",
   "admin_financial_stats_header": "Финансовая статистика",
   "admin_stats_recent_payments_header": "Последние платежи:",
   "admin_stats_payment_item": "{status_emoji} {amount} {currency} от {user_info} ({p_status}) [{p_date}]",
   "admin_stats_no_payments_found": "Платежей пока нет.",
-  "admin_view_payments_button": "💰 Платежи",
+  "admin_view_payments_button": {
+    "text": "💰 Платежи",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "admin_payments_header": "💰 <b>Все платежи</b>",
   "admin_no_payments_found": "Платежи не найдены.",
   "admin_export_payments_csv": "📊 Экспорт CSV",
@@ -158,11 +348,31 @@
   "admin_sync_status_never_run": "Синхронизация с панелью еще не проводилась.",
   "admin_broadcast_enter_message": "Введите сообщение для рассылки (HTML поддерживается):",
   "admin_broadcast_confirm_prompt_short": "Сообщение выше будет отправлено. Подтвердить отправку?",
-  "broadcast_target_all_button": "👥 Все",
-  "broadcast_target_active_button": "✅ Активные",
-  "broadcast_target_inactive_button": "⌛ Неактивные",
-  "confirm_broadcast_send_button": "✅ Отправить",
-  "cancel_broadcast_button": "❌ Отмена",
+  "broadcast_target_all_button": {
+    "text": "👥 Все",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "broadcast_target_active_button": {
+    "text": "✅ Активные",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "broadcast_target_inactive_button": {
+    "text": "⌛ Неактивные",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "confirm_broadcast_send_button": {
+    "text": "✅ Отправить",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "cancel_broadcast_button": {
+    "text": "❌ Отмена",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "admin_broadcast_sending_started": "Начинаю рассылку...",
   "admin_broadcast_error_no_message": "Ошибка: сообщение для рассылки не найдено.",
   "admin_broadcast_error_no_message_alert": "Сообщение для рассылки пустое!",
@@ -192,17 +402,33 @@
   "admin_bulk_promo_created_stats": "📊 Создано: <b>{created}</b> из <b>{total}</b>",
   "admin_bulk_promo_settings": "🎁 Бонусные дни: <b>{bonus_days}</b>\n📊 Макс. активаций: <b>{max_activations}</b>\n⏰ Срок действия: <b>{validity}</b>",
   "admin_promo_list_page_info": "Страница {current}/{total} ({count} промокодов)",
-  "admin_queue_status_button": "📊 Статус очередей",
+  "admin_queue_status_button": {
+    "text": "📊 Статус очередей",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "admin_queue_status_title": "📊 Статус очередей сообщений",
   "admin_queue_status_info": "📤 <b>Очереди сообщений:</b>\n\n👥 <b>Пользователи (25 сообщ/сек):</b>\n   📋 В очереди: {user_queue_size}\n   🔄 Обрабатывается: {user_processing}\n   📈 Отправлено за минуту: {user_recent}\n\n📢 <b>Группы/каналы (15 сообщ/мин):</b>\n   📋 В очереди: {group_queue_size}\n   🔄 Обрабатывается: {group_processing}\n   📈 Отправлено за минуту: {group_recent}",
   "admin_active_promos_list_header": "Активные промокоды:",
   "admin_no_active_promos": "Нет активных промокодов.",
   "admin_promo_valid_indefinitely": "бессрочно",
-  "admin_promo_edit_button": "✏️ Изменить",
-  "admin_promo_delete_button": "🗑 Удалить",
+  "admin_promo_edit_button": {
+    "text": "✏️ Изменить",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_promo_delete_button": {
+    "text": "🗑 Удалить",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "admin_promo_deleted_success": "Промокод {code} удален.",
   "admin_promo_not_found": "Промокод не найден.",
-  "admin_promo_export_csv_button": "📄 Экспорт в CSV",
+  "admin_promo_export_csv_button": {
+    "text": "📄 Экспорт в CSV",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "admin_promo_export_caption": "📄 Активации промокода {code}",
   "admin_promo_export_all_generating": "📄 Создаю CSV файл...",
   "admin_promo_export_all_caption": "📄 Экспорт всех промокодов\n📊 Всего: {count} промокодов",
@@ -232,19 +458,63 @@
   "admin_user_already_banned": "Пользователь {user_id_or_username} уже заблокирован.",
   "admin_unban_user_prompt": "Введите ID или @username пользователя для разблокировки:",
   "admin_user_not_banned": "⚠️ Пользователь не заблокирован",
-  "admin_banned_user_button_text": "{user_display} (ID: {user_id})",
-  "prev_page_button": "⬅️ Пред.",
-  "next_page_button": "След. ➡️",
+  "admin_banned_user_button_text": {
+    "text": "{user_display} (ID: {user_id})",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "prev_page_button": {
+    "text": "⬅️ Пред.",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "next_page_button": {
+    "text": "След. ➡️",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "admin_user_card_title": "Карточка пользователя",
-  "user_card_ban_button": "🚫 Заблокировать",
-  "user_card_unban_button": "✅ Разблокировать",
-  "user_card_open_profile_button": "👤 Открыть профиль",
-  "user_card_open_referrer_profile_button": "👤 Профиль пригласившего",
-  "user_card_back_to_banned_list_button": "⬅️ К списку забаненных",
+  "user_card_ban_button": {
+    "text": "🚫 Заблокировать",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "user_card_unban_button": {
+    "text": "✅ Разблокировать",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "user_card_open_profile_button": {
+    "text": "👤 Открыть профиль",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "user_card_open_referrer_profile_button": {
+    "text": "👤 Профиль пригласившего",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "user_card_back_to_banned_list_button": {
+    "text": "⬅️ К списку забаненных",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "admin_logs_menu_title": "Меню логов:",
-  "admin_view_all_logs_button": "📜 Все логи сообщений",
-  "admin_view_user_logs_prompt_button": "👤 Логи пользователя",
-  "admin_export_logs_csv_button": "📄 Экспорт в CSV",
+  "admin_view_all_logs_button": {
+    "text": "📜 Все логи сообщений",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_view_user_logs_prompt_button": {
+    "text": "👤 Логи пользователя",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_export_logs_csv_button": {
+    "text": "📄 Экспорт в CSV",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "admin_no_logs_found": "Логи не найдены.",
   "admin_log_entry_format": "<code>{timestamp_str}</code> - <b>{user_display}</b> (ID: {user_id})\n  <i>{event_type}</i>: {content_preview}",
   "admin_prompt_for_user_id_or_username_logs": "Введите ID или @username пользователя для просмотра его логов:",
@@ -260,13 +530,41 @@
   "error_displaying_statistics": "Ошибка отображения статистики.",
   "admin_user_management_prompt": "👤 Управление пользователями\n\nВведите ID пользователя или @username для поиска:",
   "admin_user_subscription_info": "Информация о подписке:",
-  "admin_user_reset_trial_button": "🔄 Сбросить триал",
-  "admin_user_add_subscription_button": "➕ Добавить дни",
-  "admin_user_toggle_ban_button": "🚫 Бан/Разбан",
-  "admin_user_send_message_button": "✉️ Сообщение",
-  "admin_user_view_logs_button": "📜 Логи",
-  "admin_user_refresh_button": "🔄 Обновить",
-  "admin_user_delete_button": "❌ Удалить пользователя",
+  "admin_user_reset_trial_button": {
+    "text": "🔄 Сбросить триал",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_user_add_subscription_button": {
+    "text": "➕ Добавить дни",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_user_toggle_ban_button": {
+    "text": "🚫 Бан/Разбан",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_user_send_message_button": {
+    "text": "✉️ Сообщение",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_user_view_logs_button": {
+    "text": "📜 Логи",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_user_refresh_button": {
+    "text": "🔄 Обновить",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_user_delete_button": {
+    "text": "❌ Удалить пользователя",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "admin_user_delete_not_allowed": "❌ У вас нет прав для удаления пользователей.",
   "admin_user_delete_confirmation_prompt": "⚠️ Вы хотите полностью удалить пользователя {user_id}.\n\nОтправьте точный Telegram ID этого пользователя, чтобы подтвердить удаление.\nЛюбой другой ответ отменит операцию.",
   "admin_user_delete_state_missing": "⚠️ Нет активной операции удаления. Начните заново.",
@@ -276,9 +574,21 @@
   "admin_user_delete_panel_error": "❌ Не удалось удалить пользователя на панели. Операция прервана.",
   "admin_user_delete_success": "✅ Пользователь {user_id} удалён из бота и панели.",
   "admin_user_delete_error": "❌ Не удалось удалить пользователя. Попробуйте позже.",
-  "admin_user_search_new_button": "🔍 Новый поиск",
-  "admin_user_view_all_logs_button": "📋 Все логи",
-  "admin_user_back_to_card_button": "🔙 К карточке",
+  "admin_user_search_new_button": {
+    "text": "🔍 Новый поиск",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_user_view_all_logs_button": {
+    "text": "📋 Все логи",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_user_back_to_card_button": {
+    "text": "🔙 К карточке",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "admin_user_recent_actions_title": "📜 Последние действия пользователя {user_id}:",
   "admin_user_not_found": "❌ Пользователь не найден: {input}",
   "admin_user_not_found_action": "Пользователь не найден",
@@ -312,7 +622,11 @@
   "inline_admin_system_stats_title": "🖥 Системная статистика",
   "log_referral_suffix": " (реферал от {referrer_link})",
   "log_open_profile_link": "👤 Открыть профиль",
-  "log_open_referrer_profile_button": "👤 Профиль пригласившего",
+  "log_open_referrer_profile_button": {
+    "text": "👤 Профиль пригласившего",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "log_new_user_registration": "👤 <b>Новый пользователь</b>\n\n🆔 ID: <code>{user_id}</code>\n👤 Имя: {user_display}{referral_text}\n📅 Время: {timestamp}",
   "log_payment_received": "{provider_emoji} <b>Получен платеж</b>\n\n👤 Пользователь: {user_display}\n💰 Сумма: <b>{amount} {currency}</b>\n📅 Период: <b>{months} мес.</b>\n🏦 Провайдер: {payment_provider}\n🕐 Время: {timestamp}",
   "log_payment_received_traffic": "{provider_emoji} <b>Получен платеж</b>\n\n👤 Пользователь: {user_display}\n💰 Сумма: <b>{amount} {currency}</b>\n🗂 Трафик: <b>{traffic_gb} ГБ</b>\n🏦 Провайдер: {payment_provider}\n🕐 Время: {timestamp}",
@@ -386,7 +700,11 @@
   "admin_user_ref_purchased_label": "💳 <b>Купили подписку:</b>",
   "admin_user_subscription_active_until": "⏰ <b>Действует до:</b>",
   "admin_user_subscription_error": "Ошибка загрузки",
-  "admin_promo_management_button": "🎟 Управление промокодами",
+  "admin_promo_management_button": {
+    "text": "🎟 Управление промокодами",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "admin_promo_management_title": "🎟 <b>Управление промокодами</b>\n\nВыберите промокод для детального просмотра:",
   "admin_promo_management_empty": "📭 Промокоды отсутствуют",
   "admin_promo_card_title": "🎟 <b>Промокод: {code}</b>",
@@ -404,14 +722,30 @@
   "admin_promo_status_deactivated": "деактивирован",
   "admin_promo_status_expired": "⏰ Истек",
   "admin_promo_status_used_up": "🔄 Исчерпан",
-  "admin_promo_toggle_status_button": "🔄 Вкл/Выкл",
-  "admin_promo_view_activations_button": "📋 Активации",
-  "admin_promo_back_to_list_button": "⬅️ К списку",
+  "admin_promo_toggle_status_button": {
+    "text": "🔄 Вкл/Выкл",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_promo_view_activations_button": {
+    "text": "📋 Активации",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_promo_back_to_list_button": {
+    "text": "⬅️ К списку",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "admin_promo_toggle_success": "✅ Промокод {code} {status}",
   "admin_promo_no_activations": "📋 <b>Активации промокода: {code}</b>\n\n❌ Активаций не найдено",
   "admin_promo_activations_header": "📋 <b>Активации промокода: {code}</b>\n\n",
   "admin_promo_activation_item": "👤 User ID: <b>{user_id}</b>\n📅 Дата: <b>{date}</b>\n",
-  "admin_promo_back_to_detail_button": "⬅️ К промокоду",
+  "admin_promo_back_to_detail_button": {
+    "text": "⬅️ К промокоду",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "admin_panel_online_label": "Онлайн",
   "admin_panel_active_label": "Активных",
   "admin_panel_disabled_label": "Отключенных",
@@ -450,14 +784,38 @@
   "my_subscription_details": "🔐 <b>Моя подписка</b>\n\n⏰ Статус: <b>{status}</b>\n📅 Действует до: <b>{end_date}</b>\n📆 Осталось дней: <b>{days_left}</b>\n\n🔗 Ссылка на конфигурацию:\n<code>{config_link}</code>\n\n📊 Трафик:\nЛимит: <b>{traffic_limit}</b>\nИспользовано: <b>{traffic_used}</b>",
   "my_traffic_details": "🔐 <b>Мой трафик</b>\n\n⏰ Статус: <b>{status}</b>\n📅 Действует до: <b>{end_date}</b>\n\n🔗 Ссылка на конфигурацию:\n<code>{config_link}</code>\n\n📊 Трафик:\nЛимит: <b>{traffic_limit}</b>\nИспользовано: <b>{traffic_used}</b>\nОсталось: <b>{traffic_left}</b>",
   "traffic_no_expiry": "без ограничения",
-  "autorenew_enable_button": "🔄 Включить автопродление",
-  "autorenew_disable_button": "🛑 Отключить автопродление",
+  "autorenew_enable_button": {
+    "text": "🔄 Включить автопродление",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "autorenew_disable_button": {
+    "text": "🛑 Отключить автопродление",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "subscription_autorenew_updated": "Настройки автопродления обновлены.",
-  "payment_methods_manage_button": "💳 Способы оплаты",
+  "payment_methods_manage_button": {
+    "text": "💳 Способы оплаты",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "payment_methods_title": "💳 <b>Способы оплаты</b>",
-  "payment_method_bind_button": "➕ Добавить способ",
-  "payment_method_delete_button": "🗑 Удалить",
-  "payment_method_view_button": "ℹ️ Детали",
+  "payment_method_bind_button": {
+    "text": "➕ Добавить способ",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "payment_method_delete_button": {
+    "text": "🗑 Удалить",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "payment_method_view_button": {
+    "text": "ℹ️ Детали",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "payment_method_none": "У вас пока нет сохранённого способа оплаты.",
   "payment_method_bound_success": "✅ Способ оплаты добавлен.",
   "payment_method_deleted_success": "✅ Способ оплаты удалён.",
@@ -488,7 +846,11 @@
   "admin_ads_header": "📈 Рекламные кампании:",
   "admin_ads_empty": "📭 Рекламные кампании отсутствуют. Нажмите \"Создать\" чтобы добавить новую.",
   "admin_ads_item": "ID: {id}\nИсточник: <b>{source}</b>\nstart={start_param}\nСтоимость: {cost} RUB\nАктивна: {active}\n— Запустили: {starts}\n— Взяли триал: {trials}\n— Оплатили: {payers}\n— Доход: {revenue} RUB",
-  "admin_ads_create_button": "➕ Создать кампанию",
+  "admin_ads_create_button": {
+    "text": "➕ Создать кампанию",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "admin_ads_create_source_prompt": "Введите источник (например: AEZA, VK, TG-канал):",
   "admin_ads_create_start_param_prompt": "Введите параметр старт-ссылки (например: AEZA). Будет использован как start=AEZA",
   "admin_ads_create_cost_prompt": "Введите сумму затрат на кампанию (в RUB):",
@@ -499,9 +861,17 @@
   "admin_ads_created_success": "✅ Кампания создана!\nID: {id}\nИсточник: {source}\nПараметр: {start_param}\nЗатраты: {cost} RUB",
   "admin_ads_back_to_menu_hint": "Готово. Вернуться к разделу рекламы:",
   "admin_ads_overview": "📈 <b>Реклама</b>\n💰 Пришло: <b>{revenue} RUB</b>\n💸 Потрачено: <b>{cost} RUB</b>",
-  "back_to_ads_list_button": "⬅️ К списку",
+  "back_to_ads_list_button": {
+    "text": "⬅️ К списку",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "admin_ads_card": "📈 <b>Кампания #{id}</b>\nИсточник: <b>{source}</b>\nstart=<code>{start_param}</code>\nСтоимость: <b>{cost} RUB</b>\nАктивна: {active}\n\n👥 Запустили: <b>{starts}</b>\n🆓 Взяли триал: <b>{trials}</b>\n💳 Оплатили: <b>{payers}</b>\n💵 Доход: <b>{revenue} RUB</b>",
-  "admin_ads_delete_button": "🗑 Удалить кампанию",
+  "admin_ads_delete_button": {
+    "text": "🗑 Удалить кампанию",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "admin_ads_delete_confirm": "Вы уверены, что хотите удалить кампанию #{id}? Это действие необратимо.",
   "admin_ads_deleted_success": "Кампания удалена.",
   "admin_ads_not_found": "Кампания не найдена.",
