@@ -1,23 +1,71 @@
 {
   "welcome": "Welcome, {user_name}!",
   "channel_subscription_required": "To use the bot, join the channel and tap \"Check subscription\".",
-  "channel_subscription_join_button": "Open channel",
-  "channel_subscription_verify_button": "Check subscription",
+  "channel_subscription_join_button": {
+    "text": "Open channel",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "channel_subscription_verify_button": {
+    "text": "Check subscription",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "channel_subscription_check_failed": "Couldn't verify the subscription. Please try again later or contact support.",
   "channel_subscription_verified_success": "✅ Subscription confirmed! You're good to go.",
   "main_menu_greeting": "Hi, {user_name}! 👋\nWhat would you like to do?",
-  "menu_activate_trial_button": "🆓 Free Trial",
-  "menu_subscribe_inline": "🚀 Purchase",
-  "menu_my_subscription_inline": "🔐 My Subscription",
+  "menu_activate_trial_button": {
+    "text": "🆓 Free Trial",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "menu_subscribe_inline": {
+    "text": "🚀 Purchase",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "menu_my_subscription_inline": {
+    "text": "🔐 My Subscription",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "no_subscription_options_available": "Subscription issuance is not configured by the bot administrator",
-  "menu_referral_inline": "🎁 Referrals",
+  "menu_referral_inline": {
+    "text": "🎁 Referrals",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "referral_no_bonuses_configured": "Sorry, the referral program is currently disabled",
-  "menu_apply_promo_button": "🎟 Promo Code",
-  "menu_language_settings_inline": "🌐 Language",
-  "menu_server_status_button": "📊 Status",
-  "menu_support_button": "💬 Support",
-  "menu_terms_button": "📄 Terms of Service",
-  "back_to_main_menu_button": "⬅️ Back",
+  "menu_apply_promo_button": {
+    "text": "🎟 Promo Code",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "menu_language_settings_inline": {
+    "text": "🌐 Language",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "menu_server_status_button": {
+    "text": "📊 Status",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "menu_support_button": {
+    "text": "💬 Support",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "menu_terms_button": {
+    "text": "📄 Terms of Service",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "back_to_main_menu_button": {
+    "text": "⬅️ Back",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "choose_language": "Choose language:",
   "language_set_alert": "Language changed!",
   "error_occurred_try_again": "An error occurred, please try again.",
@@ -26,38 +74,104 @@
   "main_menu_unknown_action": "Unknown action.",
   "select_subscription_period": "Select subscription period:",
   "select_traffic_package": "Select a traffic package:",
-  "subscribe_for_months_button": "{months} mo. - {price} {currency_symbol}",
-  "buy_traffic_package_button": "{traffic_gb} GB - {price} {currency_symbol}",
+  "subscribe_for_months_button": {
+    "text": "{months} mo. - {price} {currency_symbol}",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "buy_traffic_package_button": {
+    "text": "{traffic_gb} GB - {price} {currency_symbol}",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "choose_payment_method": "Choose payment method:",
   "choose_payment_method_traffic": "Choose how to pay for the traffic package:",
-  "pay_button": "💳 Pay",
-  "pay_with_yookassa_button": "💳 YooKassa",
+  "pay_button": {
+    "text": "💳 Pay",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "pay_with_yookassa_button": {
+    "text": "💳 YooKassa",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "yookassa_autopay_flow_prompt": "Auto-renew is enabled. Choose how you'd like to pay:",
-  "yookassa_autopay_pay_saved_card_button": "💳 Pay with saved card",
-  "yookassa_autopay_pay_new_card_button": "➕ Pay with new card",
+  "yookassa_autopay_pay_saved_card_button": {
+    "text": "💳 Pay with saved card",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "yookassa_autopay_pay_new_card_button": {
+    "text": "➕ Pay with new card",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "yookassa_autopay_choose_saved_card": "Choose a saved card to charge:",
   "yookassa_autopay_no_saved_cards": "No saved cards found. Pay with a new card or link one in Payment Methods.",
-  "back_to_autopay_method_choice_button": "⬅️ Back",
+  "back_to_autopay_method_choice_button": {
+    "text": "⬅️ Back",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "yookassa_autopay_charge_initiated": "Charge request sent to the selected card. We'll notify you once the payment completes.",
-  "pay_with_sbp_button": "📱 SBP",
-  "pay_with_platega_button": "💳 Platega (SBP/Cards)",
-  "pay_with_severpay_button": "💳 SeverPay",
-  "back_to_payment_methods_button": "⬅️ Back",
-  "pay_with_cryptopay_button": "💎 CryptoBot",
-  "pay_with_stars_button": "🌟 Telegram Stars",
-  "connect_button": "🔗 Connect",
-  "cancel_button": "❌ Cancel",
-
-  "devices_button": "📱 My Devices ({current_devices}/{max_devices})",
+  "pay_with_sbp_button": {
+    "text": "📱 SBP",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "pay_with_platega_button": {
+    "text": "💳 Platega (SBP/Cards)",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "pay_with_severpay_button": {
+    "text": "💳 SeverPay",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "back_to_payment_methods_button": {
+    "text": "⬅️ Back",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "pay_with_cryptopay_button": {
+    "text": "💎 CryptoBot",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "pay_with_stars_button": {
+    "text": "🌟 Telegram Stars",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "connect_button": {
+    "text": "🔗 Connect",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "cancel_button": {
+    "text": "❌ Cancel",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "devices_button": {
+    "text": "📱 My Devices ({current_devices}/{max_devices})",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "my_devices_details": "📱 <b>My Devices ({current_devices}/{max_devices})</b>\n\n{devices}\n\nYou can disconnect a device by selecting it from the list below.\n<blockquote><i>Note: If you disconnect a device, it will be automatically connected again when you use it next. Before deleting, make sure you have deleted the subscription from the application.</i></blockquote>",
   "no_devices_details_found_message": "📱 <b>My Devices</b>\n\nYou don't have any devices yet.\nYou have {max_devices} devices available. You can connect them by clicking the \"🔗 Connect\" button in the subscription menu.",
   "device_details": "{index}) <b>{device_model} ({platform} {os_version})</b>\nDate connected: <b>{created_at_str}</b>\nUser Agent: <b>{user_agent}</b>\nHWID: <code>{hwid}</code>",
-  "disconnect_device_button": "🚫 Disconnect {hwid} ({index})",
+  "disconnect_device_button": {
+    "text": "🚫 Disconnect {hwid} ({index})",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "device_disconnected": "Device disconnected successfully.",
   "no_devices_found": "Error loading device list.",
   "devices_unlimited_label": "Unlimited",
   "my_devices_feature_disabled": "The My Devices section is currently unavailable.",
-
   "payment_description_subscription": "Subscription payment for {months} mo.",
   "payment_description_traffic": "Traffic package {traffic_gb} GB",
   "payment_link_message": "To pay for {months} mo. subscription, click the button below:",
@@ -85,49 +199,125 @@
   "promo_input_cancelled_short": "Promo code entry cancelled.",
   "trial_feature_disabled": "Free trial is currently unavailable.",
   "trial_already_had_subscription_or_trial": "You have already used a free trial or had a paid subscription. Free trial is available only once for new users.",
-  "trial_confirm_activate_button": "✅ Activate!",
+  "trial_confirm_activate_button": {
+    "text": "✅ Activate!",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "trial_activated_alert": "Trial activated!",
   "trial_activated_details_message": "✅ Trial activated!\nYour {days}-day trial is active until {end_date}.\n\nConnection key:\n<code>{config_link}</code>\n\nTo connect, open the link and follow the instructions 👇",
-  "yes_button": "Yes",
-  "no_button": "No",
+  "yes_button": {
+    "text": "Yes",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "no_button": {
+    "text": "No",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "referral_program_info_new": "🎁 <b>Referral Program</b>\n\n📊 <b>Your stats:</b>\n👥 Friends invited: <b>{invited_count}</b>\n💳 Purchased subscription: <b>{purchased_count}</b>\n\n🔗 Your link:\n<code>{referral_link}</code>\n\n💰 <b>Invitation bonuses:</b>\n{bonus_details}\n\n📢 Share the link with friends and get bonuses!",
   "referral_bonus_per_period": "\n\n🎁 For a friend's {months}-month subscription:\n  ➢ You: <b>{inviter_bonus_days} days</b>\n  ➢ Friend: <b>{referee_bonus_days} days</b>",
   "referral_not_available_for_traffic": "Referral bonuses are not available for traffic packages.",
-  "referral_share_message_button": "📩 Message for friend",
+  "referral_share_message_button": {
+    "text": "📩 Message for friend",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "referral_friend_message": "🚀 Hey! Try this VPN - it's fast, reliable and affordable!\n\n🎁 Use my link to get bonus days with your subscription!\n\n{referral_link}",
   "friend_placeholder": "friend",
   "referral_bonus_inviter_notification_extended": "🎉 Congrats! Your friend {referee_name} paid for a subscription. You received {days} bonus days! Your subscription is now active until {new_end_date}.",
   "referral_bonus_inviter_notification_new_sub": "🎉 Congrats! Your friend {referee_name} paid for a subscription. You received a {days}-day bonus subscription! It is active until {new_end_date}.",
   "user_is_banned": "🚫 Your account is banned. Please contact support.",
   "admin_panel_title": "Admin Panel",
-  "admin_stats_button": "📊 Statistics",
-  "admin_broadcast_button": "📢 Broadcast",
-  "admin_create_promo_button": "🎁 Create Promo",
-  "admin_create_bulk_promo_button": "📦 Bulk Create",
-  "admin_ban_user_button": "🚫 Ban",
-  "admin_unban_user_button": "✅ Unban",
-  "admin_view_banned_users_button": "📜 Ban List",
-  "admin_view_logs_menu_button": "📄 Logs",
-  "admin_sync_panel_button": "🔄 Sync",
+  "admin_stats_button": {
+    "text": "📊 Statistics",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_broadcast_button": {
+    "text": "📢 Broadcast",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_create_promo_button": {
+    "text": "🎁 Create Promo",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_create_bulk_promo_button": {
+    "text": "📦 Bulk Create",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_ban_user_button": {
+    "text": "🚫 Ban",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_unban_user_button": {
+    "text": "✅ Unban",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_view_banned_users_button": {
+    "text": "📜 Ban List",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_view_logs_menu_button": {
+    "text": "📄 Logs",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_sync_panel_button": {
+    "text": "🔄 Sync",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "admin_unknown_action": "Unknown admin action.",
   "admin_stats_and_monitoring_section": "📊 Statistics",
   "admin_user_management_section": "👥 Users",
   "admin_promo_marketing_section": "🎁 Promos",
   "admin_system_functions_section": "⚙️ System",
   "admin_ban_management_section": "🚫 Bans",
-  "admin_users_search_button": "🔍 Search",
-  "admin_users_management_button": "👥 User List",
+  "admin_users_search_button": {
+    "text": "🔍 Search",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_users_management_button": {
+    "text": "👥 User List",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "admin_users_list_header": "👥 <b>User List</b>\n\nPage {current}/{total} ({total_users} users)",
-  "admin_user_back_to_list_button": "⬅️ Back to List",
-  "back_to_user_management_button": "⬅️ To Users",
-  "back_to_admin_panel_button": "⬅️ To Admin",
+  "admin_user_back_to_list_button": {
+    "text": "⬅️ Back to List",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "back_to_user_management_button": {
+    "text": "⬅️ To Users",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "back_to_admin_panel_button": {
+    "text": "⬅️ To Admin",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "admin_stats_header": "📊 Bot Statistics",
   "admin_enhanced_users_stats_header": "Users",
   "admin_financial_stats_header": "Financial Statistics",
   "admin_stats_recent_payments_header": "Recent Payments:",
   "admin_stats_payment_item": "{status_emoji} {amount} {currency} from {user_info} ({p_status}) [{p_date}]",
   "admin_stats_no_payments_found": "No payments found yet.",
-  "admin_view_payments_button": "💰 Payments",
+  "admin_view_payments_button": {
+    "text": "💰 Payments",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "admin_payments_header": "💰 <b>All Payments</b>",
   "admin_no_payments_found": "No payments found.",
   "admin_export_payments_csv": "📊 Export CSV",
@@ -157,11 +347,31 @@
   "admin_sync_status_never_run": "Panel sync never run.",
   "admin_broadcast_enter_message": "Enter the broadcast message (HTML supported):",
   "admin_broadcast_confirm_prompt_short": "The message above will be sent. Confirm?",
-  "broadcast_target_all_button": "👥 All",
-  "broadcast_target_active_button": "✅ Active",
-  "broadcast_target_inactive_button": "⌛ Inactive",
-  "confirm_broadcast_send_button": "✅ Send",
-  "cancel_broadcast_button": "❌ Cancel",
+  "broadcast_target_all_button": {
+    "text": "👥 All",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "broadcast_target_active_button": {
+    "text": "✅ Active",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "broadcast_target_inactive_button": {
+    "text": "⌛ Inactive",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "confirm_broadcast_send_button": {
+    "text": "✅ Send",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "cancel_broadcast_button": {
+    "text": "❌ Cancel",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "admin_broadcast_sending_started": "Starting broadcast...",
   "admin_broadcast_error_no_message": "Error: no message to broadcast.",
   "admin_broadcast_error_no_message_alert": "Broadcast message is empty!",
@@ -182,17 +392,33 @@
   "admin_bulk_promo_created_stats": "📊 Created: <b>{created}</b> of <b>{total}</b>",
   "admin_bulk_promo_settings": "🎁 Bonus days: <b>{bonus_days}</b>\n📊 Max activations: <b>{max_activations}</b>\n⏰ Validity: <b>{validity}</b>",
   "admin_promo_list_page_info": "Page {current}/{total} ({count} promo codes)",
-  "admin_queue_status_button": "📊 Queue Status",
+  "admin_queue_status_button": {
+    "text": "📊 Queue Status",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "admin_queue_status_title": "📊 Message Queue Status",
   "admin_queue_status_info": "📤 <b>Message Queues:</b>\n\n👥 <b>Users (25 msg/sec):</b>\n   📋 In queue: {user_queue_size}\n   🔄 Processing: {user_processing}\n   📈 Sent per minute: {user_recent}\n\n📢 <b>Groups/channels (15 msg/min):</b>\n   📋 In queue: {group_queue_size}\n   🔄 Processing: {group_processing}\n   📈 Sent per minute: {group_recent}",
   "admin_active_promos_list_header": "Active Promo Codes:",
   "admin_no_active_promos": "No active promo codes.",
   "admin_promo_valid_indefinitely": "indefinite",
-  "admin_promo_edit_button": "✏️ Edit",
-  "admin_promo_delete_button": "🗑 Delete",
+  "admin_promo_edit_button": {
+    "text": "✏️ Edit",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_promo_delete_button": {
+    "text": "🗑 Delete",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "admin_promo_deleted_success": "Promo {code} deleted.",
   "admin_promo_not_found": "Promo not found.",
-  "admin_promo_export_csv_button": "📄 Export to CSV",
+  "admin_promo_export_csv_button": {
+    "text": "📄 Export to CSV",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "admin_promo_export_caption": "📄 Activations for promo code {code}",
   "admin_promo_export_all_generating": "📄 Generating CSV...",
   "admin_promo_export_all_caption": "📄 Export of all promo codes\n📊 Total: {count} promo codes",
@@ -222,19 +448,63 @@
   "admin_user_already_banned": "User {user_id_or_username} is already banned.",
   "admin_unban_user_prompt": "Enter user ID or @username to unban:",
   "admin_user_not_banned": "⚠️ User is not banned",
-  "admin_banned_user_button_text": "{user_display} (ID: {user_id})",
-  "prev_page_button": "⬅️ Prev.",
-  "next_page_button": "Next ➡️",
+  "admin_banned_user_button_text": {
+    "text": "{user_display} (ID: {user_id})",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "prev_page_button": {
+    "text": "⬅️ Prev.",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "next_page_button": {
+    "text": "Next ➡️",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "admin_user_card_title": "User Card",
-  "user_card_ban_button": "🚫 Ban",
-  "user_card_unban_button": "✅ Unban",
-  "user_card_open_profile_button": "👤 Open profile",
-  "user_card_open_referrer_profile_button": "👤 Referrer profile",
-  "user_card_back_to_banned_list_button": "⬅️ Back to Ban List",
+  "user_card_ban_button": {
+    "text": "🚫 Ban",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "user_card_unban_button": {
+    "text": "✅ Unban",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "user_card_open_profile_button": {
+    "text": "👤 Open profile",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "user_card_open_referrer_profile_button": {
+    "text": "👤 Referrer profile",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "user_card_back_to_banned_list_button": {
+    "text": "⬅️ Back to Ban List",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "admin_logs_menu_title": "Logs Menu:",
-  "admin_view_all_logs_button": "📜 All Message Logs",
-  "admin_view_user_logs_prompt_button": "👤 User Logs",
-  "admin_export_logs_csv_button": "📄 Export to CSV",
+  "admin_view_all_logs_button": {
+    "text": "📜 All Message Logs",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_view_user_logs_prompt_button": {
+    "text": "👤 User Logs",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_export_logs_csv_button": {
+    "text": "📄 Export to CSV",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "admin_no_logs_found": "No logs found.",
   "admin_log_entry_format": "<code>{timestamp_str}</code> - <b>{user_display}</b> (ID: {user_id})\n  <i>{event_type}</i>: {content_preview}",
   "admin_prompt_for_user_id_or_username_logs": "Enter user ID or @username to view logs:",
@@ -259,13 +529,41 @@
   "yookassa_auto_renewal": "🔄 <b>Subscription Auto-Renewed</b>\n\nYour subscription was automatically renewed for {months} month(s).\nNew expiration date: {end_date}",
   "admin_user_management_prompt": "👤 User Management\n\nEnter user ID or @username to search:",
   "admin_user_subscription_info": "Subscription Information:",
-  "admin_user_reset_trial_button": "🔄 Reset Trial",
-  "admin_user_add_subscription_button": "➕ Add Days",
-  "admin_user_toggle_ban_button": "🚫 Block/Unblock",
-  "admin_user_send_message_button": "✉️ Send Message",
-  "admin_user_view_logs_button": "📜 User Actions",
-  "admin_user_refresh_button": "🔄 Refresh",
-  "admin_user_delete_button": "❌ Delete User",
+  "admin_user_reset_trial_button": {
+    "text": "🔄 Reset Trial",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_user_add_subscription_button": {
+    "text": "➕ Add Days",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_user_toggle_ban_button": {
+    "text": "🚫 Block/Unblock",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_user_send_message_button": {
+    "text": "✉️ Send Message",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_user_view_logs_button": {
+    "text": "📜 User Actions",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_user_refresh_button": {
+    "text": "🔄 Refresh",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_user_delete_button": {
+    "text": "❌ Delete User",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "admin_user_delete_not_allowed": "❌ You are not permitted to delete users.",
   "admin_user_delete_confirmation_prompt": "⚠️ You are about to delete user {user_id} completely.\n\nSend the exact Telegram ID of this user to confirm.\nAny other reply will cancel the operation.",
   "admin_user_delete_state_missing": "⚠️ No active delete operation. Start again.",
@@ -275,9 +573,21 @@
   "admin_user_delete_panel_error": "❌ Failed to remove the user from the panel. Operation aborted.",
   "admin_user_delete_success": "✅ User {user_id} was removed from the bot and the panel.",
   "admin_user_delete_error": "❌ Unable to delete the user. Please try again later.",
-  "admin_user_search_new_button": "🔍 Find Another",
-  "admin_user_view_all_logs_button": "📋 All Actions",
-  "admin_user_back_to_card_button": "🔙 Back to Card",
+  "admin_user_search_new_button": {
+    "text": "🔍 Find Another",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_user_view_all_logs_button": {
+    "text": "📋 All Actions",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_user_back_to_card_button": {
+    "text": "🔙 Back to Card",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "admin_user_recent_actions_title": "📜 Recent actions of user {user_id}:",
   "admin_user_not_found": "❌ User not found: {input}",
   "admin_user_not_found_action": "User not found",
@@ -311,7 +621,11 @@
   "inline_admin_system_stats_title": "🖥 System Statistics",
   "log_referral_suffix": " (referral from {referrer_link})",
   "log_open_profile_link": "👤 Open profile",
-  "log_open_referrer_profile_button": "👤 Referrer profile",
+  "log_open_referrer_profile_button": {
+    "text": "👤 Referrer profile",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "log_new_user_registration": "👤 <b>New User</b>\n\n🆔 ID: <code>{user_id}</code>\n👤 Name: {user_display}{referral_text}\n📅 Time: {timestamp}",
   "log_payment_received": "{provider_emoji} <b>Payment Received</b>\n\n👤 User: {user_display}\n💰 Amount: <b>{amount} {currency}</b>\n📅 Period: <b>{months} mo.</b>\n🏦 Provider: {payment_provider}\n🕐 Time: {timestamp}",
   "log_payment_received_traffic": "{provider_emoji} <b>Payment Received</b>\n\n👤 User: {user_display}\n💰 Amount: <b>{amount} {currency}</b>\n🗂 Traffic: <b>{traffic_gb} GB</b>\n🏦 Provider: {payment_provider}\n🕐 Time: {timestamp}",
@@ -384,7 +698,11 @@
   "admin_user_ref_purchased_label": "💳 <b>Purchased subscription:</b>",
   "admin_user_subscription_active_until": "⏰ <b>Active until:</b>",
   "admin_user_subscription_error": "Loading error",
-  "admin_promo_management_button": "🎟 Promo Management",
+  "admin_promo_management_button": {
+    "text": "🎟 Promo Management",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "admin_promo_management_title": "🎟 <b>Promo Code Management</b>\n\nSelect a promo code for detailed view:",
   "admin_promo_management_empty": "📭 No promo codes available",
   "admin_promo_card_title": "🎟 <b>Promo Code: {code}</b>",
@@ -402,14 +720,30 @@
   "admin_promo_status_deactivated": "deactivated",
   "admin_promo_status_expired": "⏰ Expired",
   "admin_promo_status_used_up": "🔄 Used up",
-  "admin_promo_toggle_status_button": "🔄 On/Off",
-  "admin_promo_view_activations_button": "📋 Activations",
-  "admin_promo_back_to_list_button": "⬅️ Back to list",
+  "admin_promo_toggle_status_button": {
+    "text": "🔄 On/Off",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_promo_view_activations_button": {
+    "text": "📋 Activations",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "admin_promo_back_to_list_button": {
+    "text": "⬅️ Back to list",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "admin_promo_toggle_success": "✅ Promo code {code} {status}",
   "admin_promo_no_activations": "📋 <b>Activations of promo code: {code}</b>\n\n❌ No activations found",
   "admin_promo_activations_header": "📋 <b>Activations of promo code: {code}</b>\n\n",
   "admin_promo_activation_item": "👤 User ID: <b>{user_id}</b>\n📅 Date: <b>{date}</b>\n",
-  "admin_promo_back_to_detail_button": "⬅️ Back to promo",
+  "admin_promo_back_to_detail_button": {
+    "text": "⬅️ Back to promo",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "admin_panel_online_label": "Online",
   "admin_panel_active_label": "Active",
   "admin_panel_disabled_label": "Disabled",
@@ -448,14 +782,38 @@
   "my_subscription_details": "🔐 <b>My Subscription</b>\n\n⏰ Status: <b>{status}</b>\n📅 Active until: <b>{end_date}</b>\n📆 Days left: <b>{days_left}</b>\n\n🔗 Configuration link:\n<code>{config_link}</code>\n\n📊 Traffic:\nLimit: <b>{traffic_limit}</b>\nUsed: <b>{traffic_used}</b>",
   "my_traffic_details": "🔐 <b>My Traffic</b>\n\n⏰ Status: <b>{status}</b>\n📅 Valid until: <b>{end_date}</b>\n\n🔗 Configuration link:\n<code>{config_link}</code>\n\n📊 Traffic:\nLimit: <b>{traffic_limit}</b>\nUsed: <b>{traffic_used}</b>\nLeft: <b>{traffic_left}</b>",
   "traffic_no_expiry": "no limit",
-  "autorenew_enable_button": "🔄 Enable auto-renew",
-  "autorenew_disable_button": "🛑 Disable auto-renew",
+  "autorenew_enable_button": {
+    "text": "🔄 Enable auto-renew",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "autorenew_disable_button": {
+    "text": "🛑 Disable auto-renew",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "subscription_autorenew_updated": "Auto-renew settings updated.",
-  "payment_methods_manage_button": "💳 Payment Methods",
+  "payment_methods_manage_button": {
+    "text": "💳 Payment Methods",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "payment_methods_title": "💳 <b>Payment Methods</b>",
-  "payment_method_bind_button": "➕ Add method",
-  "payment_method_delete_button": "🗑 Remove",
-  "payment_method_view_button": "ℹ️ Details",
+  "payment_method_bind_button": {
+    "text": "➕ Add method",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "payment_method_delete_button": {
+    "text": "🗑 Remove",
+    "color": "default",
+    "custom_emoji_id": null
+  },
+  "payment_method_view_button": {
+    "text": "ℹ️ Details",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "payment_method_none": "You don't have a saved payment method yet.",
   "payment_method_bound_success": "✅ Payment method added.",
   "payment_method_deleted_success": "✅ Payment method removed.",
@@ -486,7 +844,11 @@
   "admin_ads_header": "📈 Ad Campaigns:",
   "admin_ads_empty": "📭 No ad campaigns. Click \"Create\" to add one.",
   "admin_ads_item": "ID: {id}\nSource: <b>{source}</b>\nstart={start_param}\nCost: {cost} RUB\nActive: {active}\n— Starts: {starts}\n— Trials: {trials}\n— Payers: {payers}\n— Revenue: {revenue} RUB",
-  "admin_ads_create_button": "➕ Create campaign",
+  "admin_ads_create_button": {
+    "text": "➕ Create campaign",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "admin_ads_create_source_prompt": "Enter source (e.g., AEZA, VK, TG-channel):",
   "admin_ads_create_start_param_prompt": "Enter start link parameter (e.g., AEZA). Will be used as start=AEZA",
   "admin_ads_create_cost_prompt": "Enter campaign cost (RUB):",
@@ -497,9 +859,17 @@
   "admin_ads_created_success": "✅ Campaign created!\nID: {id}\nSource: {source}\nParam: {start_param}\nCost: {cost} RUB",
   "admin_ads_back_to_menu_hint": "Done. Back to Ads section:",
   "admin_ads_overview": "📈 <b>Ads</b>\n💰 Revenue: <b>{revenue} RUB</b>\n💸 Spent: <b>{cost} RUB</b>",
-  "back_to_ads_list_button": "⬅️ Back to list",
+  "back_to_ads_list_button": {
+    "text": "⬅️ Back to list",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "admin_ads_card": "📈 <b>Campaign #{id}</b>\nSource: <b>{source}</b>\nstart=<code>{start_param}</code>\nCost: <b>{cost} RUB</b>\nActive: {active}\n\n👥 Starts: <b>{starts}</b>\n🆓 Trials: <b>{trials}</b>\n💳 Payers: <b>{payers}</b>\n💵 Revenue: <b>{revenue} RUB</b>",
-  "admin_ads_delete_button": "🗑 Delete campaign",
+  "admin_ads_delete_button": {
+    "text": "🗑 Delete campaign",
+    "color": "default",
+    "custom_emoji_id": null
+  },
   "admin_ads_delete_confirm": "Are you sure you want to delete campaign #{id}? This action is irreversible.",
   "admin_ads_deleted_success": "Campaign deleted.",
   "admin_ads_not_found": "Campaign not found.",
