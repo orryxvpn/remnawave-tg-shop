@@ -2,12 +2,13 @@ import logging
 from typing import Optional
 
 from aiogram import F, Router, types
-from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from aiogram.types import InlineKeyboardMarkup
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from bot.middlewares.i18n import JsonI18n
 from bot.services.stars_service import StarsService
 from config.settings import Settings
+from bot.utils.button_factory import build_inline_button
 
 router = Router(name="user_subscription_payments_stars_router")
 
@@ -81,14 +82,18 @@ async def pay_stars_callback_handler(
                 reply_markup=InlineKeyboardMarkup(
                     inline_keyboard=[
                         [
-                            InlineKeyboardButton(
-                                text=get_text("back_to_payment_methods_button"),
+                            build_inline_button(
+                                i18n=i18n,
+                                lang=current_lang,
+                                text_key="back_to_payment_methods_button",
                                 callback_data=f"subscribe_period:{human_value}",
                             )
                         ],
                         [
-                            InlineKeyboardButton(
-                                text=get_text("cancel_button"),
+                            build_inline_button(
+                                i18n=i18n,
+                                lang=current_lang,
+                                text_key="cancel_button",
                                 callback_data="main_action:subscribe",
                             )
                         ],

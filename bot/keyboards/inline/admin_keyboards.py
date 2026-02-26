@@ -6,6 +6,7 @@ import math
 from config.settings import Settings
 from bot.middlewares.i18n import JsonI18n
 from db.models import User
+from bot.utils.button_factory import build_inline_button
 
 
 def get_admin_panel_keyboard(i18n_instance, lang: str,
@@ -14,24 +15,19 @@ def get_admin_panel_keyboard(i18n_instance, lang: str,
     builder = InlineKeyboardBuilder()
     
     # Статистика и мониторинг
-    builder.button(text=_(key="admin_stats_and_monitoring_section"),
-                   callback_data="admin_section:stats_monitoring")
+    builder.add(build_inline_button(i18n=i18n_instance, lang=lang, text_key="admin_stats_and_monitoring_section", callback_data="admin_section:stats_monitoring"))
     
     # Управление пользователями  
-    builder.button(text=_(key="admin_user_management_section"),
-                   callback_data="admin_section:user_management")
+    builder.add(build_inline_button(i18n=i18n_instance, lang=lang, text_key="admin_user_management_section", callback_data="admin_section:user_management"))
     
     # Промокоды и маркетинг
-    builder.button(text=_(key="admin_promo_marketing_section"),
-                   callback_data="admin_section:promo_marketing")
+    builder.add(build_inline_button(i18n=i18n_instance, lang=lang, text_key="admin_promo_marketing_section", callback_data="admin_section:promo_marketing"))
     
     # Реклама
-    builder.button(text=_(key="admin_ads_section"),
-                   callback_data="admin_action:ads")
+    builder.add(build_inline_button(i18n=i18n_instance, lang=lang, text_key="admin_ads_section", callback_data="admin_action:ads"))
 
     # Системные функции
-    builder.button(text=_(key="admin_system_functions_section"),
-                   callback_data="admin_section:system_functions")
+    builder.add(build_inline_button(i18n=i18n_instance, lang=lang, text_key="admin_system_functions_section", callback_data="admin_section:system_functions"))
     
     builder.adjust(1)
     return builder.as_markup()
@@ -41,15 +37,11 @@ def get_stats_monitoring_keyboard(i18n_instance, lang: str) -> InlineKeyboardMar
     _ = lambda key, **kwargs: i18n_instance.gettext(lang, key, **kwargs)
     builder = InlineKeyboardBuilder()
     
-    builder.button(text=_(key="admin_stats_button"),
-                   callback_data="admin_action:stats")
-    builder.button(text=_(key="admin_view_payments_button"),
-                   callback_data="admin_action:view_payments")
-    builder.button(text=_(key="admin_view_logs_menu_button"),
-                   callback_data="admin_action:view_logs_menu")
+    builder.add(build_inline_button(i18n=i18n_instance, lang=lang, text_key="admin_stats_button", callback_data="admin_action:stats"))
+    builder.add(build_inline_button(i18n=i18n_instance, lang=lang, text_key="admin_view_payments_button", callback_data="admin_action:view_payments"))
+    builder.add(build_inline_button(i18n=i18n_instance, lang=lang, text_key="admin_view_logs_menu_button", callback_data="admin_action:view_logs_menu"))
     
-    builder.button(text=_(key="back_to_admin_panel_button"),
-                   callback_data="admin_action:main")
+    builder.add(build_inline_button(i18n=i18n_instance, lang=lang, text_key="back_to_admin_panel_button", callback_data="admin_action:main"))
     builder.adjust(2, 1, 1)
     return builder.as_markup()
 
@@ -58,15 +50,11 @@ def get_user_management_keyboard(i18n_instance, lang: str) -> InlineKeyboardMark
     _ = lambda key, **kwargs: i18n_instance.gettext(lang, key, **kwargs)
     builder = InlineKeyboardBuilder()
     
-    builder.button(text=_(key="admin_users_management_button"),
-                   callback_data="admin_action:users_list:0")
-    builder.button(text=_(key="admin_users_search_button"),
-                   callback_data="admin_action:users_search_prompt")
-    builder.button(text=_(key="admin_ban_management_section"),
-                   callback_data="admin_section:ban_management")
+    builder.add(build_inline_button(i18n=i18n_instance, lang=lang, text_key="admin_users_management_button", callback_data="admin_action:users_list:0"))
+    builder.add(build_inline_button(i18n=i18n_instance, lang=lang, text_key="admin_users_search_button", callback_data="admin_action:users_search_prompt"))
+    builder.add(build_inline_button(i18n=i18n_instance, lang=lang, text_key="admin_ban_management_section", callback_data="admin_section:ban_management"))
     
-    builder.button(text=_(key="back_to_admin_panel_button"),
-                   callback_data="admin_action:main")
+    builder.add(build_inline_button(i18n=i18n_instance, lang=lang, text_key="back_to_admin_panel_button", callback_data="admin_action:main"))
     builder.adjust(2, 1, 1)
     return builder.as_markup()
 
@@ -75,15 +63,11 @@ def get_ban_management_keyboard(i18n_instance, lang: str) -> InlineKeyboardMarku
     _ = lambda key, **kwargs: i18n_instance.gettext(lang, key, **kwargs)
     builder = InlineKeyboardBuilder()
     
-    builder.button(text=_(key="admin_ban_user_button"),
-                   callback_data="admin_action:ban_user_prompt")
-    builder.button(text=_(key="admin_unban_user_button"),
-                   callback_data="admin_action:unban_user_prompt")
-    builder.button(text=_(key="admin_view_banned_users_button"),
-                   callback_data="admin_action:view_banned:0")
+    builder.add(build_inline_button(i18n=i18n_instance, lang=lang, text_key="admin_ban_user_button", callback_data="admin_action:ban_user_prompt"))
+    builder.add(build_inline_button(i18n=i18n_instance, lang=lang, text_key="admin_unban_user_button", callback_data="admin_action:unban_user_prompt"))
+    builder.add(build_inline_button(i18n=i18n_instance, lang=lang, text_key="admin_view_banned_users_button", callback_data="admin_action:view_banned:0"))
     
-    builder.button(text=_(key="back_to_user_management_button"),
-                   callback_data="admin_section:user_management")
+    builder.add(build_inline_button(i18n=i18n_instance, lang=lang, text_key="back_to_user_management_button", callback_data="admin_section:user_management"))
     builder.adjust(2, 1, 1)
     return builder.as_markup()
 
@@ -92,15 +76,11 @@ def get_promo_marketing_keyboard(i18n_instance, lang: str) -> InlineKeyboardMark
     _ = lambda key, **kwargs: i18n_instance.gettext(lang, key, **kwargs)
     builder = InlineKeyboardBuilder()
     
-    builder.button(text=_(key="admin_create_promo_button"),
-                   callback_data="admin_action:create_promo")
-    builder.button(text=_(key="admin_create_bulk_promo_button"),
-                   callback_data="admin_action:create_bulk_promo")
-    builder.button(text=_(key="admin_promo_management_button"),
-                   callback_data="admin_action:promo_management")
+    builder.add(build_inline_button(i18n=i18n_instance, lang=lang, text_key="admin_create_promo_button", callback_data="admin_action:create_promo"))
+    builder.add(build_inline_button(i18n=i18n_instance, lang=lang, text_key="admin_create_bulk_promo_button", callback_data="admin_action:create_bulk_promo"))
+    builder.add(build_inline_button(i18n=i18n_instance, lang=lang, text_key="admin_promo_management_button", callback_data="admin_action:promo_management"))
     
-    builder.button(text=_(key="back_to_admin_panel_button"),
-                   callback_data="admin_action:main")
+    builder.add(build_inline_button(i18n=i18n_instance, lang=lang, text_key="back_to_admin_panel_button", callback_data="admin_action:main"))
     builder.adjust(2, 1, 1)
     return builder.as_markup()
 
@@ -109,15 +89,11 @@ def get_system_functions_keyboard(i18n_instance, lang: str) -> InlineKeyboardMar
     _ = lambda key, **kwargs: i18n_instance.gettext(lang, key, **kwargs)
     builder = InlineKeyboardBuilder()
     
-    builder.button(text=_(key="admin_broadcast_button"),
-                   callback_data="admin_action:broadcast")
-    builder.button(text=_(key="admin_sync_panel_button"),
-                   callback_data="admin_action:sync_panel")
-    builder.button(text=_(key="admin_queue_status_button"),
-                   callback_data="admin_action:queue_status")
+    builder.add(build_inline_button(i18n=i18n_instance, lang=lang, text_key="admin_broadcast_button", callback_data="admin_action:broadcast"))
+    builder.add(build_inline_button(i18n=i18n_instance, lang=lang, text_key="admin_sync_panel_button", callback_data="admin_action:sync_panel"))
+    builder.add(build_inline_button(i18n=i18n_instance, lang=lang, text_key="admin_queue_status_button", callback_data="admin_action:queue_status"))
     
-    builder.button(text=_(key="back_to_admin_panel_button"),
-                   callback_data="admin_action:main")
+    builder.add(build_inline_button(i18n=i18n_instance, lang=lang, text_key="back_to_admin_panel_button", callback_data="admin_action:main"))
     builder.adjust(2, 1, 1)
     return builder.as_markup()
 
@@ -125,10 +101,8 @@ def get_system_functions_keyboard(i18n_instance, lang: str) -> InlineKeyboardMar
 def get_ads_menu_keyboard(i18n_instance, lang: str) -> InlineKeyboardMarkup:
     _ = lambda key, **kwargs: i18n_instance.gettext(lang, key, **kwargs)
     builder = InlineKeyboardBuilder()
-    builder.button(text=_(key="admin_ads_create_button"),
-                   callback_data="admin_action:ads_create")
-    builder.button(text=_(key="back_to_admin_panel_button"),
-                   callback_data="admin_action:main")
+    builder.add(build_inline_button(i18n=i18n_instance, lang=lang, text_key="admin_ads_create_button", callback_data="admin_action:ads_create"))
+    builder.add(build_inline_button(i18n=i18n_instance, lang=lang, text_key="back_to_admin_panel_button", callback_data="admin_action:main"))
     builder.adjust(1, 1)
     return builder.as_markup()
 
@@ -176,10 +150,8 @@ def get_ads_list_keyboard(
         if row:
             builder.row(*row)
 
-    builder.button(text=_(key="admin_ads_create_button"),
-                   callback_data="admin_action:ads_create")
-    builder.button(text=_(key="back_to_admin_panel_button"),
-                   callback_data="admin_action:main")
+    builder.add(build_inline_button(i18n=i18n_instance, lang=lang, text_key="admin_ads_create_button", callback_data="admin_action:ads_create"))
+    builder.add(build_inline_button(i18n=i18n_instance, lang=lang, text_key="back_to_admin_panel_button", callback_data="admin_action:main"))
     builder.adjust(1)
     return builder.as_markup()
 
@@ -192,8 +164,7 @@ def get_ad_card_keyboard(i18n_instance, lang: str, campaign_id: int, back_page: 
                    callback_data=f"admin_ads:delete:{campaign_id}:{back_page}")
     builder.button(text=_(key="back_to_ads_list_button"),
                    callback_data=f"admin_ads:page:{back_page}")
-    builder.button(text=_(key="back_to_admin_panel_button"),
-                   callback_data="admin_action:main")
+    builder.add(build_inline_button(i18n=i18n_instance, lang=lang, text_key="back_to_admin_panel_button", callback_data="admin_action:main"))
     builder.adjust(1)
     return builder.as_markup()
 
@@ -201,15 +172,11 @@ def get_ad_card_keyboard(i18n_instance, lang: str, campaign_id: int, back_page: 
 def get_logs_menu_keyboard(i18n_instance, lang: str) -> InlineKeyboardMarkup:
     _ = lambda key, **kwargs: i18n_instance.gettext(lang, key, **kwargs)
     builder = InlineKeyboardBuilder()
-    builder.button(text=_(key="admin_view_all_logs_button"),
-                   callback_data="admin_logs:view_all:0")
-    builder.button(text=_(key="admin_view_user_logs_prompt_button"),
-                   callback_data="admin_logs:prompt_user")
-    builder.button(text=_(key="admin_export_logs_csv_button"),
-                   callback_data="admin_logs:export_csv")
+    builder.add(build_inline_button(i18n=i18n_instance, lang=lang, text_key="admin_view_all_logs_button", callback_data="admin_logs:view_all:0"))
+    builder.add(build_inline_button(i18n=i18n_instance, lang=lang, text_key="admin_view_user_logs_prompt_button", callback_data="admin_logs:prompt_user"))
+    builder.add(build_inline_button(i18n=i18n_instance, lang=lang, text_key="admin_export_logs_csv_button", callback_data="admin_logs:export_csv"))
     builder.row(
-        InlineKeyboardButton(text=_(key="back_to_admin_panel_button"),
-                             callback_data="admin_action:main"))
+        build_inline_button(i18n=i18n_instance, lang=lang, text_key="back_to_admin_panel_button", callback_data="admin_action:main"))
     builder.adjust(2, 1, 1)
     return builder.as_markup()
 
@@ -239,12 +206,10 @@ def get_logs_pagination_keyboard(
 
     if back_to_logs_menu:
         builder.row(
-            InlineKeyboardButton(text=_(key="admin_logs_menu_title"),
-                                 callback_data="admin_action:view_logs_menu"))
+            build_inline_button(i18n=i18n_instance, lang=lang, text_key="admin_logs_menu_title", callback_data="admin_action:view_logs_menu"))
     else:
         builder.row(
-            InlineKeyboardButton(text=_(key="back_to_admin_panel_button"),
-                                 callback_data="admin_action:main"))
+            build_inline_button(i18n=i18n_instance, lang=lang, text_key="back_to_admin_panel_button", callback_data="admin_action:main"))
     return builder.as_markup()
 
 
@@ -302,8 +267,7 @@ def get_banned_users_keyboard(banned_users: List[User], current_page: int,
             builder.row(*pagination_buttons)
 
     builder.row(
-        InlineKeyboardButton(text=_("back_to_admin_panel_button"),
-                             callback_data="admin_action:main"))
+        build_inline_button(i18n=i18n_instance, lang=lang, text_key="back_to_admin_panel_button", callback_data="admin_action:main"))
     return builder.as_markup()
 
 
@@ -393,8 +357,7 @@ def get_user_card_keyboard(user_id: int,
     builder.button(
         text=_(key="user_card_back_to_banned_list_button"),
         callback_data=f"admin_action:view_banned:{banned_list_page}")
-    builder.button(text=_(key="back_to_admin_panel_button"),
-                   callback_data="admin_action:main")
+    builder.add(build_inline_button(i18n=i18n_instance, lang=lang, text_key="back_to_admin_panel_button", callback_data="admin_action:main"))
     builder.adjust(1)
     return builder.as_markup()
 
@@ -445,10 +408,8 @@ def get_broadcast_confirmation_keyboard(lang: str,
     builder.adjust(3)
 
     # Row: confirmation
-    builder.button(text=_(key="confirm_broadcast_send_button"),
-                   callback_data="broadcast_final_action:send")
-    builder.button(text=_(key="cancel_broadcast_button"),
-                   callback_data="broadcast_final_action:cancel")
+    builder.add(build_inline_button(i18n=i18n_instance, lang=lang, text_key="confirm_broadcast_send_button", callback_data="broadcast_final_action:send"))
+    builder.add(build_inline_button(i18n=i18n_instance, lang=lang, text_key="cancel_broadcast_button", callback_data="broadcast_final_action:cancel"))
     builder.adjust(2)
     return builder.as_markup()
 
@@ -457,6 +418,5 @@ def get_back_to_admin_panel_keyboard(lang: str,
                                      i18n_instance) -> InlineKeyboardMarkup:
     _ = lambda key, **kwargs: i18n_instance.gettext(lang, key, **kwargs)
     builder = InlineKeyboardBuilder()
-    builder.button(text=_(key="back_to_admin_panel_button"),
-                   callback_data="admin_action:main")
+    builder.add(build_inline_button(i18n=i18n_instance, lang=lang, text_key="back_to_admin_panel_button", callback_data="admin_action:main"))
     return builder.as_markup()
