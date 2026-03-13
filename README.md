@@ -46,7 +46,7 @@
 
 1.  **Клонируйте репозиторий:**
     ```bash
-    git clone https://github.com/kavore/remnawave-tg-shop
+    git clone git@github.com:orryxvpn/remnawave-tg-shop.git
     cd remnawave-tg-shop
     ```
 
@@ -207,12 +207,43 @@
 alembic upgrade head
 ```
 
+
+### Как обновляться из своего форка
+
+1. Проверьте текущие remote-репозитории:
+
+```bash
+git remote -v
+```
+
+2. Убедитесь, что `origin` указывает на ваш форк `orryxvpn/remnawave-tg-shop`.
+
+3. Добавьте upstream (оригинальный репозиторий), если его ещё нет:
+
+```bash
+git remote add upstream https://github.com/kavore/remnawave-tg-shop.git
+```
+
+4. Подтяните изменения из upstream и обновите свою ветку:
+
+```bash
+git fetch upstream
+git checkout main
+git merge upstream/main
+```
+
+5. Отправьте обновления в свой форк:
+
+```bash
+git push origin main
+```
+
 ## Подробная инструкция для развертывания на сервере с панелью Remnawave
 
 ### 1. Клонирование репозитория
 
 ```bash
-git clone https://github.com/kavore/remnawave-tg-shop && cd remnawave-tg-shop
+git clone git@github.com:orryxvpn/remnawave-tg-shop.git && cd remnawave-tg-shop
 ```
 
 ### 2. Настройка переменных окружения
