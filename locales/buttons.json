@@ -1,0 +1,366 @@
+{
+  "menu_activate_trial": {
+    "text_key": "menu_activate_trial_button",
+    "emoji": "🎁",
+    "style": "primary"
+  },
+  "menu_subscribe": {
+    "text_key": "menu_subscribe_inline",
+    "emoji": "🛍️",
+    "style": "primary"
+  },
+  "menu_my_subscription": {
+    "text_key": "menu_my_subscription_inline",
+    "emoji": "📦",
+    "style": "secondary"
+  },
+  "menu_apply_promo": {
+    "text_key": "menu_apply_promo_button",
+    "emoji": "🎟️",
+    "style": "secondary"
+  },
+  "menu_referral": {
+    "text_key": "menu_referral_inline",
+    "emoji": "🤝",
+    "style": "secondary"
+  },
+  "menu_language_settings": {
+    "text_key": "menu_language_settings_inline",
+    "emoji": "🌐",
+    "style": "secondary"
+  },
+  "menu_server_status": {
+    "text_key": "menu_server_status_button",
+    "emoji": "📡",
+    "style": "secondary"
+  },
+  "menu_support": {
+    "text_key": "menu_support_button",
+    "emoji": "🆘",
+    "style": "secondary"
+  },
+  "menu_terms": {
+    "text_key": "menu_terms_button",
+    "emoji": "📜",
+    "style": "secondary"
+  },
+  "back_to_main_menu": {
+    "text_key": "back_to_main_menu_button",
+    "emoji": "⬅️",
+    "style": "secondary"
+  },
+  "trial_confirm_activate": {
+    "text_key": "trial_confirm_activate_button",
+    "emoji": "✅",
+    "style": "success"
+  },
+  "cancel": {
+    "text_key": "cancel_button",
+    "emoji": "✖️",
+    "style": "danger"
+  },
+  "subscribe_for_months": {
+    "text_key": "subscribe_for_months_button",
+    "style": "primary"
+  },
+  "buy_traffic_package": {
+    "text_key": "buy_traffic_package_button",
+    "style": "primary"
+  },
+  "pay_with_severpay": {
+    "text_key": "pay_with_severpay_button",
+    "style": "primary"
+  },
+  "pay_with_sbp": {
+    "text_key": "pay_with_sbp_button",
+    "style": "primary"
+  },
+  "pay_with_platega": {
+    "text_key": "pay_with_platega_button",
+    "style": "primary"
+  },
+  "pay_with_yookassa": {
+    "text_key": "pay_with_yookassa_button",
+    "style": "primary"
+  },
+  "pay_with_stars": {
+    "text_key": "pay_with_stars_button",
+    "style": "primary"
+  },
+  "pay_with_cryptopay": {
+    "text_key": "pay_with_cryptopay_button",
+    "style": "primary"
+  },
+  "pay": {
+    "text_key": "pay_button",
+    "emoji": "💳",
+    "style": "primary"
+  },
+  "yookassa_autopay_pay_saved_card": {
+    "text_key": "yookassa_autopay_pay_saved_card_button",
+    "style": "primary"
+  },
+  "yookassa_autopay_pay_new_card": {
+    "text_key": "yookassa_autopay_pay_new_card_button",
+    "style": "primary"
+  },
+  "back_to_payment_methods": {
+    "text_key": "back_to_payment_methods_button",
+    "emoji": "⬅️",
+    "style": "secondary"
+  },
+  "back_to_autopay_method_choice": {
+    "text_key": "back_to_autopay_method_choice_button",
+    "emoji": "⬅️",
+    "style": "secondary"
+  },
+  "referral_share_message": {
+    "text_key": "referral_share_message_button",
+    "emoji": "📨",
+    "style": "primary"
+  },
+  "channel_subscription_join": {
+    "text_key": "channel_subscription_join_button",
+    "emoji": "📢",
+    "style": "primary"
+  },
+  "channel_subscription_verify": {
+    "text_key": "channel_subscription_verify_button",
+    "emoji": "✅",
+    "style": "success"
+  },
+  "connect": {
+    "text_key": "connect_button",
+    "emoji": "🔗",
+    "style": "primary"
+  },
+  "payment_method_bind": {
+    "text_key": "payment_method_bind_button",
+    "emoji": "➕",
+    "style": "primary"
+  },
+  "payment_method_delete": {
+    "text_key": "payment_method_delete_button",
+    "emoji": "🗑️",
+    "style": "danger"
+  },
+  "payment_method_tx_history": {
+    "text_key": "payment_method_tx_history_title",
+    "emoji": "🧾",
+    "style": "secondary"
+  },
+  "yes": {
+    "text_key": "yes_button",
+    "emoji": "✅",
+    "style": "success"
+  },
+  "no": {
+    "text_key": "no_button",
+    "emoji": "❌",
+    "style": "danger"
+  },
+  "autorenew_disable": {
+    "text_key": "autorenew_disable_button",
+    "emoji": "🛑",
+    "style": "danger"
+  },
+  "admin_stats_and_monitoring_section": {
+    "text_key": "admin_stats_and_monitoring_section",
+    "emoji": "📊",
+    "style": "primary"
+  },
+  "admin_user_management_section": {
+    "text_key": "admin_user_management_section",
+    "emoji": "👥",
+    "style": "primary"
+  },
+  "admin_promo_marketing_section": {
+    "text_key": "admin_promo_marketing_section",
+    "emoji": "🎯",
+    "style": "primary"
+  },
+  "admin_ads_section": {
+    "text_key": "admin_ads_section",
+    "emoji": "📣",
+    "style": "primary"
+  },
+  "admin_system_functions_section": {
+    "text_key": "admin_system_functions_section",
+    "emoji": "⚙️",
+    "style": "primary"
+  },
+  "admin_stats": {
+    "text_key": "admin_stats_button",
+    "emoji": "📈",
+    "style": "secondary"
+  },
+  "admin_view_payments": {
+    "text_key": "admin_view_payments_button",
+    "emoji": "💸",
+    "style": "secondary"
+  },
+  "admin_view_logs_menu": {
+    "text_key": "admin_view_logs_menu_button",
+    "emoji": "🧾",
+    "style": "secondary"
+  },
+  "back_to_admin_panel": {
+    "text_key": "back_to_admin_panel_button",
+    "emoji": "⬅️",
+    "style": "secondary"
+  },
+  "admin_users_management": {
+    "text_key": "admin_users_management_button",
+    "emoji": "📋",
+    "style": "secondary"
+  },
+  "admin_users_search": {
+    "text_key": "admin_users_search_button",
+    "emoji": "🔎",
+    "style": "secondary"
+  },
+  "admin_ban_management_section": {
+    "text_key": "admin_ban_management_section",
+    "emoji": "🚫",
+    "style": "secondary"
+  },
+  "admin_ban_user": {
+    "text_key": "admin_ban_user_button",
+    "emoji": "⛔",
+    "style": "danger"
+  },
+  "admin_unban_user": {
+    "text_key": "admin_unban_user_button",
+    "emoji": "✅",
+    "style": "success"
+  },
+  "admin_view_banned_users": {
+    "text_key": "admin_view_banned_users_button",
+    "emoji": "📄",
+    "style": "secondary"
+  },
+  "back_to_user_management": {
+    "text_key": "back_to_user_management_button",
+    "emoji": "⬅️",
+    "style": "secondary"
+  },
+  "admin_create_promo": {
+    "text_key": "admin_create_promo_button",
+    "emoji": "🎁",
+    "style": "primary"
+  },
+  "admin_create_bulk_promo": {
+    "text_key": "admin_create_bulk_promo_button",
+    "emoji": "🎟️",
+    "style": "primary"
+  },
+  "admin_promo_management": {
+    "text_key": "admin_promo_management_button",
+    "emoji": "🛠️",
+    "style": "secondary"
+  },
+  "admin_broadcast": {
+    "text_key": "admin_broadcast_button",
+    "emoji": "📤",
+    "style": "primary"
+  },
+  "admin_sync_panel": {
+    "text_key": "admin_sync_panel_button",
+    "emoji": "🔄",
+    "style": "secondary"
+  },
+  "admin_queue_status": {
+    "text_key": "admin_queue_status_button",
+    "emoji": "📬",
+    "style": "secondary"
+  },
+  "admin_ads_create": {
+    "text_key": "admin_ads_create_button",
+    "emoji": "➕",
+    "style": "primary"
+  },
+  "admin_ads_delete": {
+    "text_key": "admin_ads_delete_button",
+    "emoji": "🗑️",
+    "style": "danger"
+  },
+  "back_to_ads_list": {
+    "text_key": "back_to_ads_list_button",
+    "emoji": "⬅️",
+    "style": "secondary"
+  },
+  "admin_view_all_logs": {
+    "text_key": "admin_view_all_logs_button",
+    "emoji": "📑",
+    "style": "secondary"
+  },
+  "admin_view_user_logs_prompt": {
+    "text_key": "admin_view_user_logs_prompt_button",
+    "emoji": "👤",
+    "style": "secondary"
+  },
+  "admin_export_logs_csv": {
+    "text_key": "admin_export_logs_csv_button",
+    "emoji": "📤",
+    "style": "secondary"
+  },
+  "admin_logs_menu_title": {
+    "text_key": "admin_logs_menu_title",
+    "emoji": "📂",
+    "style": "secondary"
+  },
+  "prev_page": {
+    "text_key": "prev_page_button",
+    "style": "secondary"
+  },
+  "next_page": {
+    "text_key": "next_page_button",
+    "style": "secondary"
+  },
+  "admin_banned_user_button_text": {
+    "text_key": "admin_banned_user_button_text",
+    "style": "secondary"
+  },
+  "user_card_unban": {
+    "text_key": "user_card_unban_button",
+    "emoji": "✅",
+    "style": "success"
+  },
+  "user_card_ban": {
+    "text_key": "user_card_ban_button",
+    "emoji": "🚫",
+    "style": "danger"
+  },
+  "user_card_open_profile": {
+    "text_key": "user_card_open_profile_button",
+    "emoji": "👤",
+    "style": "secondary"
+  },
+  "user_card_back_to_banned_list": {
+    "text_key": "user_card_back_to_banned_list_button",
+    "emoji": "⬅️",
+    "style": "secondary"
+  },
+  "broadcast_target_all": {
+    "text_key": "broadcast_target_all_button",
+    "style": "secondary"
+  },
+  "broadcast_target_active": {
+    "text_key": "broadcast_target_active_button",
+    "style": "secondary"
+  },
+  "broadcast_target_inactive": {
+    "text_key": "broadcast_target_inactive_button",
+    "style": "secondary"
+  },
+  "confirm_broadcast_send": {
+    "text_key": "confirm_broadcast_send_button",
+    "emoji": "✅",
+    "style": "success"
+  },
+  "cancel_broadcast": {
+    "text_key": "cancel_broadcast_button",
+    "emoji": "✖️",
+    "style": "danger"
+  }
+}
