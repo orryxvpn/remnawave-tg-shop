@@ -31,6 +31,8 @@ class JsonI18n:
         for item in os.listdir(self.path):
             if item.endswith(".json"):
                 lang_code = item.split(".")[0]
+                if lang_code == "buttons":
+                    continue
                 file_path = os.path.join(self.path, item)
                 try:
                     with open(file_path, "r", encoding="utf-8") as f:
